@@ -1,14 +1,32 @@
+import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import login from "../../assets/images/login_logo.png"
 import MyButton from '../../components/MyButton';
+import app from '../../config/firebase.config';
+
+const auth = getAuth(app)
 
 type Inputs = {
   name: string,
   username: string,
 };
 
+
 const Register = () => {
+    
+    const googleProvider = new GoogleAuthProvider();
+
+    const handleGoogleLogin = () => {
+        signInWithPopup(auth, googleProvider)
+        .then((result) => {
+            const user = result.user;
+            console.log(user);
+        })
+        .catch((err) => console.log(err))
+    }
+
+
     const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
 
@@ -42,8 +60,8 @@ const Register = () => {
                 </div>
                 <MyButton text="Register" />
             </form>
-            <div className='px-10 mb-5'>
-                <MyButton text="Login with Google" />
+            <div onClick={handleGoogleLogin} className='px-10 mb-5'>
+                <MyButton  text="Login with Google" />
             </div>
         </div>
     </div>
