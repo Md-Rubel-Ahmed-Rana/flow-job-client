@@ -27,10 +27,10 @@ const ServiceInfo = () => {
 
             <div className='grid grid-cols-3 gap-10 mt-10 rounded-2xl'>
                 {
-                    courses.map((course: CourseType ) => {
+                    courses.map((course: CourseType , index) => {
                         const { title, instructor, duration, price} = course;
                         return (
-                            <div className='bg-slate-300 p-5 shadow-lg'>
+                            <div key={index} className='bg-slate-300 p-5 shadow-lg'>
                                 <h2 className="text-2xl font-bold mb-2">{title}</h2>
                                 <h2 className="text-xl text-green-600 mb-3 font-bold">Instructor: {instructor}</h2>
                                 <p className='font-bold'>Duration: {duration} Months</p>

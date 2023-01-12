@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import login from "../../assets/images/login_logo.png"
 import MyButton from '../../components/MyButton';
+import { AuthContext } from '../../contexts/UserContext';
 
 type Inputs = {
   name: string,
@@ -9,6 +10,7 @@ type Inputs = {
 };
 
 const Login = () => {
+    const {goolgeLogin} = useContext(AuthContext)
     const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
 
@@ -31,8 +33,8 @@ const Login = () => {
                 </div>
                 <MyButton text="Login" />
             </form>
-            <div className='px-10 mb-5'>
-                <MyButton text="Login with Google" />
+            <div onClick={goolgeLogin} className='px-10 mb-5'>
+                <MyButton  text="Login with Google" />
             </div>
         </div>
     </div>

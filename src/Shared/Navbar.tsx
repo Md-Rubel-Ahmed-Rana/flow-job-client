@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import logo from "../assets/logo.png";
 import { FaUserAlt } from "react-icons/fa";
 import {Link} from "react-router-dom"
+import { AuthContext } from '../contexts/UserContext';
 
 const Navbar = () => {
+    const {user} = useContext(AuthContext);
+    console.log(user);
     return (
         <nav className='flex justify-between bg-slate-200 px-10 py-2 items-center'>
             <div className='flex gap-3 items-center'>
@@ -16,12 +19,26 @@ const Navbar = () => {
                     <li><Link to="/">Jobs</Link></li>
                     <li><Link to="/">Friends</Link></li>
                     <li><Link to="/">Message</Link></li>
-                    <li><Link to="/register">Register</Link></li>
-                    <li><Link to="/login">Login</Link></li>
+                    {
+                        user ? <> 
+                                <li><Link to="/dashboard">Dashboard</Link></li>
+                                <li>Logout</li> 
+                                </>
+                             : 
+                               <>
+                            <li><Link to="/register">Register</Link></li>
+                            <li><Link to="/login">Login</Link></li>
+                        </>
+                    }
+                    
                 </ul>
             </div>
             <div>
-                <FaUserAlt title='Profile' />
+                {
+                    user?.photoURL ? <img className='h-12 w-12 rounded-full' src={user?.photoURL} alt="" />
+                                    : <FaUserAlt title='Profile' />
+                }
+                
             </div>
         </nav>
     );
