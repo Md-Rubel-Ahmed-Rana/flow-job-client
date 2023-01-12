@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup, getAuth, onAuthStateChanged } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import React, { createContext, useState, useEffect } from 'react';
 import app from '../config/firebase.config';
 
@@ -6,6 +6,7 @@ import app from '../config/firebase.config';
 interface User {
     user: any,
     goolgeLogin: () => any,
+    userLogout: () => any,
 }
 
 type childrenType = {
@@ -29,7 +30,12 @@ const UserContext = ({children}: childrenType) => {
         .catch((err) => console.log(err))
     }
 
-    const authInfo = {user, setUser, goolgeLogin}
+    const userLogout = () => {
+        signOut(auth)
+        .then(() => alert("User logged out"))
+    }
+
+    const authInfo = {user, setUser, goolgeLogin, userLogout}
 
     // get the currently logged in user
     useEffect(() => {

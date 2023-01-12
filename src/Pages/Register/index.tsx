@@ -1,22 +1,17 @@
 import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
-import React from 'react';
-import { useForm, SubmitHandler } from "react-hook-form";
+import React, {useState} from 'react';
 import login from "../../assets/images/login_logo.png"
 import MyButton from '../../components/MyButton';
 import app from '../../config/firebase.config';
+import Candidate from '../Accounts/Candidate';
+import Recruiter from '../Accounts/Recruiter';
 
 const auth = getAuth(app)
 
-type Inputs = {
-  name: string,
-  username: string,
-};
-
 
 const Register = () => {
-    
+    const [position , setPosition] = useState(false)
     const googleProvider = new GoogleAuthProvider();
-
     const handleGoogleLogin = () => {
         signInWithPopup(auth, googleProvider)
         .then((result) => {
@@ -26,40 +21,20 @@ const Register = () => {
         .catch((err) => console.log(err))
     }
 
-
-    const { register, handleSubmit } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
-
-
   return (
     <div className='flex'>
         <div className='w-1/2 '>
             <img className='h-full' src={login} alt="" />
         </div>
-        <div className='w-1/2 bg-blue-600 mx-auto'>
-            <form className='w-full  px-10 pt-10 pb-5' onSubmit={handleSubmit(onSubmit)}>
-                <div className='mb-3'>
-                    <p className='text-lg text-white font-semibold mb-1'>Enter your name.</p>
-                    <input className='p-2 w-full rounded' {...register("name", { required: true })} />
-                </div>
-                <div className='mb-3'>
-                     <p className='text-lg text-white font-semibold mb-1'>Enter username.</p>
-                    <input className='p-2 w-full rounded' {...register("username", { required: true })} />
-                </div>
-                <div className='mb-3'>
-                    <p className='text-lg text-white font-semibold mb-1'>Your position.</p>
-                    <input className='p-2 w-full rounded' {...register("name", { required: true })} />
-                </div>
-                <div className='mb-3'>
-                    <p className='text-lg text-white font-semibold mb-1'>Enter email</p>
-                    <input className='p-2 w-full rounded' {...register("name", { required: true })} />
-                </div>
-                <div className='mb-3'>
-                    <p className='text-lg text-white font-semibold mb-1'>Enter password</p>
-                    <input className='p-2 w-full rounded' {...register("name", { required: true })} />
-                </div>
-                <MyButton text="Register" />
-            </form>
+        <div className='w-1/2 bg-blue-600 mx-auto pt-5'>
+            <div className='text-center'>
+                <button onClick={() => setPosition(false)} className={`${!position ? "bg-white text-black border-red-600" : "bg-blue-800 text-white"} font-bold text-white rounded p-2 m-2`}>Candidate</button>
+                <button onClick={() => setPosition(true)} className={`${position ? "bg-white text-black" : "bg-blue-800 text-white"} font-bold text-white rounded p-2 m-2`}>Recruiter/HR</button>
+            </div>
+            {
+                position ? <Recruiter />
+                         : <Candidate />
+            }
             <div onClick={handleGoogleLogin} className='px-10 mb-5'>
                 <MyButton  text="Login with Google" />
             </div>

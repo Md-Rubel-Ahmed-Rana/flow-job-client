@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 import { AuthContext } from '../contexts/UserContext';
 
 const Navbar = () => {
-    const {user} = useContext(AuthContext);
+    const {user,userLogout } = useContext(AuthContext);
     console.log(user);
     return (
         <nav className='flex justify-between bg-slate-200 px-10 py-2 items-center'>
@@ -22,7 +22,7 @@ const Navbar = () => {
                     {
                         user ? <> 
                                 <li><Link to="/dashboard">Dashboard</Link></li>
-                                <li>Logout</li> 
+                                <li> <button onClick={userLogout}>Logout</button> </li> 
                                 </>
                              : 
                                <>
