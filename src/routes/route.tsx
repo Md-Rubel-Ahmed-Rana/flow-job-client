@@ -2,10 +2,12 @@ import React from 'react';
 import {createBrowserRouter} from "react-router-dom"
 import DashboardLayout from '../Layout/DashboardLayout';
 import Main from '../Layout/Main';
-import Admins from '../Pages/Dashboard/Admins';
-import AllUsers from '../Pages/Dashboard/AllUsers';
-import Candidates from '../Pages/Dashboard/Candidates';
-import Recruiters from '../Pages/Dashboard/Recruiters';
+import Admins from '../Pages/Dashboard/Admin/Admins';
+import AllUsers from '../Pages/Dashboard/Admin/AllUsers';
+import Candidates from '../Pages/Dashboard/Admin/Candidates';
+import Recruiters from '../Pages/Dashboard/Admin/Recruiters';
+import MyJobs from '../Pages/Dashboard/Candidate/MyJobs';
+import MyPosts from '../Pages/Dashboard/Recruiter/MyPosts';
 import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
             {
                 path: "/dashboard/candidates",
                 element: <Candidates/>
+            },
+            {
+                path: "/dashboard/myposts",
+                element: <MyPosts/>
+            },
+            {
+                path: "/dashboard/myjobs",
+                element: <MyJobs/>
             }
         ]
     }

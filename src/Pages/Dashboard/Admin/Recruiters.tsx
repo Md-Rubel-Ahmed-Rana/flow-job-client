@@ -19,12 +19,13 @@ const Recruiters = () => {
             </div>
             <table>
                 <thead className='flex justify-start bg-blue-700 text-white p-2 rounded'>
-                    <th className='w-10 text-center'></th>
-                    <th className='w-52 text-center'>Name</th>
-                    <th className='w-52 text-center'>Email</th>
-                    <th className='w-52 text-center'>Phone</th>
-                    <th className='w-52 text-center'>Role</th>
-                    <th className='w-52 text-center'>Total Job</th>
+                    <th className='w-10 text-center py-2'></th>
+                    <th className='w-44 text-center py-2'>Name</th>
+                    <th className='w-44 text-center py-2'>Email</th>
+                    <th className='w-44 text-center py-2'>Phone</th>
+                    <th className='w-44 text-center py-2'>Role</th>
+                    <th className='w-44 text-center py-2'>Total Job</th>
+                    <th className='w-44 text-center py-2'>Action</th>
                 </thead>
                 <tbody>
                     {
@@ -32,12 +33,13 @@ const Recruiters = () => {
                             const {name, email, phone, role, total} = recruiter;
                             return (
                                 <tr key={index} className='flex justify-start p-2 border hover:text-white hover:bg-blue-500'>
-                                    <td className='w-10 text-center '>{index + 1}</td>
-                                    <td className='w-52 text-center '>{name}</td>
-                                    <td className='w-52 text-center '>{email}</td>
-                                    <td className='w-52 text-center '>{phone}</td>
-                                    <td className='w-52 text-center '>{role}</td>
-                                    <td className='w-52 text-center '>{total}</td>
+                                    <td className='w-10 text-center py-2'>{index + 1}</td>
+                                    <td className='w-44 text-center py-2'>{name}</td>
+                                    <td className='w-44 text-center py-2'>{email}</td>
+                                    <td className='w-44 text-center py-2'>{phone}</td>
+                                    <td className='w-44 text-center py-2'>{role}</td>
+                                    <td className='w-44 text-center py-2'>{total}</td>
+                                    <td className='w-44 text-center'><button className='bg-red-700 px-2 py-1 rounded-lg text-white'>Delete</button></td>
                                 </tr>
                             )
                         })

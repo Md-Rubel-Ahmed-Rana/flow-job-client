@@ -9,6 +9,8 @@ const Sidebar = () => {
                 <li className='font-bold  p-1 rounded text-xl'><Link to="/dashboard/admins">Admins</Link></li>
                 <li className='font-bold  p-1 rounded text-xl'><Link to="/dashboard/recruiters">Recruiters</Link></li>
                 <li className='font-bold  p-1 rounded text-xl'><Link to="/dashboard/candidates">Candidates</Link></li>
+                <li className='font-bold  p-1 rounded text-xl'><Link to="/dashboard/myposts">My Posts</Link></li>
+                <li className='font-bold  p-1 rounded text-xl'><Link to="/dashboard/myjobs">My Jobs</Link></li>
             </ul>
         </nav>
     );

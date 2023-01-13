@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../Pages/Dashboard/Sidebar';
+import Sidebar from './Sidebar';
 import Footer from '../Shared/Footer';
 import Navbar from '../Shared/Navbar';
 
