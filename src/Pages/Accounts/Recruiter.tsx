@@ -7,7 +7,10 @@ type Inputs = {
   name: string,
   company: string,
   image: any,
-  position: string
+  address: string,
+  password: string
+  officeEmail: string
+  email: string
 };
 
 
@@ -30,27 +33,29 @@ const Recruiter = () => {
                 <input type="file" className='p-2 w-full bg-white rounded' {...register("image", { required: true })} />
             </div>
             <div className='mb-3'>
-                <p className='text-lg text-white font-semibold mb-1'>Enter your name.</p>
+                <p className='text-lg text-white font-semibold mb-1'>Your name.</p>
                 <input className='p-2 w-full rounded' {...register("name", { required: true })} />
             </div>
             <div className='mb-3'>
-                <p className='text-lg text-white font-semibold mb-1'>Select</p>
-                <select  className='p-2 w-full rounded' {...register("position", { required: true })}  id="position">
-                    <option selected value="candidate">candidate</option>
-                    <option value="recruiter">Recruiter/HR</option>
-                </select>
+                <p className='text-lg text-white font-semibold mb-1'>Your email</p>
+                <input className='p-2 w-full rounded' {...register("email", { required: true })} />
             </div>
             <div className='mb-3'>
-                    <p className='text-lg text-white font-semibold mb-1'>Comapny.</p>
+                    <p className='text-lg text-white font-semibold mb-1'>Comapny name.</p>
                 <input className='p-2 w-full rounded' {...register("company", { required: true })} />
             </div>
             <div className='mb-3'>
-                <p className='text-lg text-white font-semibold mb-1'>Enter email</p>
-                <input className='p-2 w-full rounded' {...register("name", { required: true })} />
+                    <p className='text-lg text-white font-semibold mb-1'>Comapny Address.</p>
+                <input className='p-2 w-full rounded' {...register("address", { required: true })} />
             </div>
             <div className='mb-3'>
+                <p className='text-lg text-white font-semibold mb-1'>Official email</p>
+                <input className='p-2 w-full rounded' {...register("officeEmail", { required: true })} />
+            </div>
+            
+            <div className='mb-3'>
                 <p className='text-lg text-white font-semibold mb-1'>Enter password</p>
-                <input className='p-2 w-full rounded' {...register("name", { required: true })} />
+                <input className='p-2 w-full rounded' {...register("password", { required: true })} />
             </div>
             <MyButton text="Register" />
         </form>
