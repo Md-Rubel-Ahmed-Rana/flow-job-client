@@ -12,6 +12,7 @@ import MyPosts from '../Pages/Dashboard/Recruiter/MyPosts';
 import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
+import TestPage from '../Pages/TestPage';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />
+            },
+            {
+                path: "/test",
+                element: <TestPage />
             }
         ]
     },

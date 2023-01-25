@@ -1,11 +1,17 @@
 import React, {useContext} from 'react';
 import logo from "../assets/logo.png";
 import { FaUserAlt } from "react-icons/fa";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import { AuthContext } from '../contexts/UserContext';
 
 const Navbar = () => {
-    const {user,userLogout } = useContext(AuthContext);
+    const {user } = useContext(AuthContext);
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/")
+    }
     console.log(user);
     return (
         <nav className='flex justify-between bg-slate-200 px-10 py-2 items-center'>
@@ -17,12 +23,13 @@ const Navbar = () => {
                 <ul className='flex gap-5 text-lg font-semibold'>
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/">Jobs</Link></li>
+                    <li><Link to="/test">Test</Link></li>
                     <li><Link to="/">Friends</Link></li>
                     <li><Link to="/">Message</Link></li>
                     {
                         user ? <> 
                                 <li><Link to="/dashboard">Dashboard</Link></li>
-                                <li> <button onClick={userLogout}>Logout</button> </li> 
+                                <li> <button onClick={handleLogout}>Logout</button> </li> 
                                 </>
                              : 
                                <>
