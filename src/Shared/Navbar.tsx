@@ -4,15 +4,15 @@ import { FaUserAlt } from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom"
 import { AuthContext } from '../contexts/UserContext';
 
+
 const Navbar = () => {
     const {user } = useContext(AuthContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem("token");
         navigate("/")
     }
-    console.log(user);
     return (
         <nav className='flex justify-between bg-slate-200 px-10 py-2 items-center'>
             <div className='flex gap-3 items-center'>
