@@ -1,5 +1,5 @@
 import React from 'react';
-import Users from '../../../features/users/Users';
+import Candidates from '../../../features/candidate/Candidates';
 import Banner from '../Banner';
 import JobTopics from '../JobTopics';
 import ServiceInfo from '../ServiceInfo/ServiceInfo';
@@ -7,7 +7,7 @@ import ServiceInfo from '../ServiceInfo/ServiceInfo';
 const Home = () => {
     return (
         <>
-        <Users />
+        <Candidates />
           <Banner />
           <JobTopics />
           <ServiceInfo />
