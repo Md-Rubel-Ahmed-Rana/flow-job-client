@@ -3,6 +3,7 @@ import {RouterProvider} from 'react-router-dom';
 import UserContext from './contexts/UserContext';
 import router from './routes/route';
  import {QueryClient,QueryClientProvider} from 'react-query'
+ import { Toaster } from 'react-hot-toast';
 
  const queryClient = new QueryClient()
 
@@ -14,6 +15,7 @@ function App() {
             <RouterProvider router={router} />
           </UserContext>
           </QueryClientProvider>
+          <Toaster />
         </div>
   );
 }

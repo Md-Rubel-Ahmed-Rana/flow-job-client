@@ -5,14 +5,17 @@ import MyButton from '../../components/MyButton';
 import { AuthContext } from '../../contexts/UserContext';
 
 type Inputs = {
-  name: string,
-  username: string,
+  email: string,
+  password: string,
 };
 
 const Login = () => {
     const {goolgeLogin} = useContext(AuthContext)
-    const { register, handleSubmit } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+    const { register, handleSubmit, reset } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    console.log(data)
+    reset()
+  };
 
 
   return (
@@ -25,11 +28,11 @@ const Login = () => {
                 <h3 className="text-2xl text-white text-center font-bold mb-10">Please Login</h3>
                 <div className='mb-3'>
                     <p className='text-lg text-white font-semibold mb-1'>Enter email</p>
-                    <input className='p-2 w-full rounded' {...register("name", { required: true })} />
+                    <input className='p-2 w-full rounded' {...register("email", { required: true })} />
                 </div>
                 <div className='mb-3'>
                     <p className='text-lg text-white font-semibold mb-1'>Enter password</p>
-                    <input className='p-2 w-full rounded' {...register("name", { required: true })} />
+                    <input className='p-2 w-full rounded' {...register("password", { required: true })} />
                 </div>
                 <MyButton text="Login" />
             </form>

@@ -1,8 +1,7 @@
-import axios from 'axios';
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import MyButton from '../../components/MyButton';
-
+import useSaveData from '../../hooks/useSaveData';
 
 type Inputs = {
   name: string,
@@ -12,20 +11,17 @@ type Inputs = {
 
 
 const Candidate = () => {
-    // const hostKey = process.env.REACT_APP_IMAGE_HOST_KEY
-    const { register, handleSubmit } = useForm<Inputs>();
+    const { register, handleSubmit, reset } = useForm<Inputs>();
+    const handleStoreData = useSaveData()
     const onSubmit: SubmitHandler<Inputs> = data => {
         const newUser = {name: data.name, email: data.email, password: data.password }
-        axios.post("http://localhost:5000/api/candidate", newUser)
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => console.log(err))
+       handleStoreData("http://localhost:5000/api/candidates", newUser);
+       reset()
     };
 
   return (
         <form className='w-full  px-10  pb-5' onSubmit={handleSubmit(onSubmit)}>
-            <h4 className="text-3xl text-center  font-bold">Create Candidate account</h4>
+            <h4 className="text-3xl text-center  font-bold text-white">Create Candidate account</h4>
             {/* <div className='mb-3 '>
                 <p className='text-lg text-white font-semibold mb-1'>Upload image.</p>
                 <input type="file" className='p-2 w-full bg-white rounded' {...register("image", { required: false })} />

@@ -3,8 +3,8 @@ import React, {useState} from 'react';
 import login from "../../assets/images/login_logo.png"
 import MyButton from '../../components/MyButton';
 import app from '../../config/firebase.config';
-import Candidate from '../Accounts/Candidate';
-import Recruiter from '../Accounts/Recruiter';
+import Candidate from './Candidate';
+import Recruiter from './Recruiter';
 
 const auth = getAuth(app)
 
@@ -28,8 +28,8 @@ const Register = () => {
         </div>
         <div className='w-1/2 bg-blue-600 mx-auto pt-5'>
             <div className='text-center'>
-                <button onClick={() => setPosition(false)} className={`${!position ? "bg-white text-black border-red-600" : "bg-blue-800 text-white"} font-bold text-white rounded p-2 m-2`}>Candidate</button>
-                <button onClick={() => setPosition(true)} className={`${position ? "bg-white text-black" : "bg-blue-800 text-white"} font-bold text-white rounded p-2 m-2`}>Recruiter/HR</button>
+                <button onClick={() => setPosition(false)} className={`${!position ? "bg-white text-black border-red-600" : "bg-blue-800 text-white"} font-bold text-white rounded p-2 m-2 outline-none`}>Candidate</button>
+                <button onClick={() => setPosition(true)} className={`${position ? "bg-white text-black" : "bg-blue-800 text-white"} font-bold text-white rounded p-2 m-2 outline-none`}>Recruiter/HR</button>
             </div>
             {
                 position ? <Recruiter />
