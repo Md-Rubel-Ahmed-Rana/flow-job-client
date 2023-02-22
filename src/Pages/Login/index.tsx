@@ -1,20 +1,27 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import login from "../../assets/images/login_logo.png"
 import MyButton from '../../components/MyButton';
-import { AuthContext } from '../../contexts/UserContext';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../features/users/usersSlice';
+import { useNavigate } from 'react-router-dom';
 
 type Inputs = {
   email: string,
   password: string,
+  null: string,
 };
 
 const Login = () => {
-    const {goolgeLogin} = useContext(AuthContext)
     const { register, handleSubmit, reset } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data)
+    const dispatch: any = useDispatch();
+    const navigate = useNavigate()
+
+
+  const onSubmit: SubmitHandler<Inputs> = ({email, password}) => {
+    dispatch(loginUser({email, password}))
     reset()
+    navigate("/")
   };
 
 
@@ -36,7 +43,7 @@ const Login = () => {
                 </div>
                 <MyButton text="Login" />
             </form>
-            <div onClick={goolgeLogin} className='px-10 mb-5'>
+            <div  className='px-10 mb-5'>
                 <MyButton  text="Login with Google" />
             </div>
         </div>

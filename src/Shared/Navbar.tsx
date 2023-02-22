@@ -1,17 +1,20 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import logo from "../assets/logo.png";
 import { FaUserAlt } from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom"
-import { AuthContext } from '../contexts/UserContext';
+import { useSelector } from 'react-redux';
+import { signOut } from 'firebase/auth';
+import auth from '../firebase/firebase.config';
 
 
 const Navbar = () => {
-    const {user } = useContext(AuthContext);
     const navigate = useNavigate();
-
+    const {user} = useSelector((state: any) => state.usersReducer)
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        navigate("/")
+        signOut(auth)
+        .then(() =>{
+            navigate("/")
+        })
     }
     return (
         <nav className='lg:flex justify-between bg-slate-200 px-10 py-2 items-center'>
@@ -27,7 +30,7 @@ const Navbar = () => {
                     <li><Link to="/">Message</Link></li>
                     <li><Link to="/dashboard">Dashboard</Link></li>
                     {
-                        user ? <> 
+                        user.email ? <> 
                                 <li> <button onClick={handleLogout}>Logout</button> </li> 
                                 </>
                              : 
@@ -39,7 +42,11 @@ const Navbar = () => {
                     
                 </ul>
             </div>
-            <div>
+            <div className='flex items-center gap-10'>
+                {
+                    user?.displayName ? <h4 className='text-2xl font-extrabold'>{user?.displayName}</h4>
+                                    :  null
+                }
                 {
                     user?.photoURL ? <img className='h-12 w-12 rounded-full' src={user?.photoURL} alt="" />
                                     : <FaUserAlt title='Profile' />

@@ -29,7 +29,7 @@ const Register = () => {
         <div className='w-1/2 bg-blue-600 mx-auto pt-5'>
             <div className='text-center'>
                 <button onClick={() => setPosition(false)} className={`${!position ? "bg-white text-black border-red-600" : "bg-blue-800 text-white"} font-bold text-white rounded p-2 m-2 outline-none`}>Candidate</button>
-                <button onClick={() => setPosition(true)} className={`${position ? "bg-white text-black" : "bg-blue-800 text-white"} font-bold text-white rounded p-2 m-2 outline-none`}>Recruiter/HR</button>
+                <button onClick={() => setPosition(true)} className={`${position ? "bg-white text-black" : "bg-blue-800 text-white"} font-bold text-white rounded p-2 m-2 outline-none`}>Employer</button>
             </div>
             {
                 position ? <Recruiter />

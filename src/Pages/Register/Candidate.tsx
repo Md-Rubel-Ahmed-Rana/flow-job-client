@@ -1,7 +1,9 @@
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch } from 'react-redux';
 import MyButton from '../../components/MyButton';
-import useSaveData from '../../hooks/useSaveData';
+import { createUser } from '../../features/users/usersSlice';
+// import useSaveData from '../../hooks/useSaveData';
 
 type Inputs = {
   name: string,
@@ -12,11 +14,13 @@ type Inputs = {
 
 const Candidate = () => {
     const { register, handleSubmit, reset } = useForm<Inputs>();
-    const handleStoreData = useSaveData()
-    const onSubmit: SubmitHandler<Inputs> = data => {
-        const newUser = {name: data.name, email: data.email, password: data.password }
-       handleStoreData("http://localhost:5000/api/candidates", newUser);
-       reset()
+    // const handleStoreData = useSaveData();
+    const dispatch: any = useDispatch()
+
+    const onSubmit: SubmitHandler<Inputs> = ({name, email, password }) => {
+    //    handleStoreData("http://localhost:5000/api/candidates", newUser)
+        dispatch(createUser({name, email, password }))
+        reset()
     };
 
   return (

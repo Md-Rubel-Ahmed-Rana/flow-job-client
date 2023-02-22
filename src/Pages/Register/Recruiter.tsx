@@ -35,7 +35,7 @@ const Recruiter = () => {
 
   return (
         <form className='w-full  px-10 pb-5' onSubmit={handleSubmit(onSubmit)}>
-            <h4 className="text-3xl text-center font-bold text-white">Create Recruiter account</h4>
+            <h4 className="text-3xl text-center font-bold text-white">Create Employer account</h4>
             <div className='mb-3 '>
                 <p className='text-lg text-white font-semibold mb-1'>Upload image.</p>
                 <input type="file" className='p-2 w-full bg-white rounded' {...register("image", { required: true })} />
