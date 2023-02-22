@@ -48,7 +48,7 @@ const Navbar = () => {
                                     :  null
                 }
                 {
-                    user?.photoURL ? <img className='h-12 w-12 rounded-full' src={user?.photoURL} alt="" />
+                    user?.photoURL ? <img className='h-20 w-20 rounded-full' src={user?.photoURL} alt="" />
                                     : <FaUserAlt title='Profile' />
                 }
                 
