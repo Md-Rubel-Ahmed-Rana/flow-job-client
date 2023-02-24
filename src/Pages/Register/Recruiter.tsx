@@ -1,8 +1,9 @@
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch } from 'react-redux';
 import MyButton from '../../components/MyButton';
-import useSaveData from '../../hooks/useSaveData';
-
+import { useRegisterMutation } from '../../features/users/usersApi';
+import { createUser } from '../../features/users/usersSlice';
 
 type Inputs = {
   name: string,
@@ -17,20 +18,13 @@ type Inputs = {
 
 const Recruiter = () => {
     const { register, handleSubmit, reset } = useForm<Inputs>();
-    const handleStoreData = useSaveData();
+    const dispatch: any = useDispatch();
+    const [createEmployer] = useRegisterMutation()
 
-    const onSubmit: SubmitHandler<Inputs> = data => {
-        const recruiterData = {
-            name: data.name,
-            company: data.company,
-            image: "image",
-            address: data.address,
-            password: data.password,
-            officeEmail: data.officeEmail,
-            email: data.email
-        }
-        handleStoreData("http://localhost:5000/api/recruiters", recruiterData);
-       reset()
+    const onSubmit: SubmitHandler<Inputs> = ({name, password, email, company, address, officeEmail}) => {
+        dispatch(createUser({name, email, password}))
+        createEmployer({name, email, company, address, officeEmail, role: "employer"})
+        reset()
     };
 
   return (

@@ -2,9 +2,8 @@ import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import MyButton from '../../components/MyButton';
-import { useRegisterMutation } from '../../features/users/usersApi';
+import { useCreateCandidateMutation } from '../../features/candidate/candidateApi';
 import { createUser } from '../../features/users/usersSlice';
-// import useSaveData from '../../hooks/useSaveData';
 
 type Inputs = {
   name: string,
@@ -15,13 +14,10 @@ type Inputs = {
 
 const Candidate = () => {
     const { register, handleSubmit, reset } = useForm<Inputs>();
-    // const handleStoreData = useSaveData();
-    const [createCandidate] = useRegisterMutation()
+    const [createCandidate] = useCreateCandidateMutation()
     const dispatch: any = useDispatch()
 
-    const onSubmit: SubmitHandler<Inputs> = ({name, email, password }) => {
-    //    handleStoreData("http://localhost:5000/api/candidates", newUser)
-    
+    const onSubmit: SubmitHandler<Inputs> = ({name, email, password }) => {    
         dispatch(createUser({name, email, password }));
         createCandidate({name, email, role: "candidate"})
         reset()

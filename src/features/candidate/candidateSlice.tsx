@@ -1,52 +1,105 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { toast } from 'react-hot-toast';
+import auth from '../../firebase/firebase.config';
 
-interface Candidate  {
-    candidates: Object[],
-    isLoading: Boolean,
-    error: null | string | undefined
+interface Candidate {
+    password: string
+    email: string
+    name: string
+}
+interface LoginUser {
+    password: string
+    email: string
 }
 
-const initialState:  Candidate = {
-    candidates: [],
-    isLoading: false,
-    error: null
+interface AuthState {
+  user: Candidate | null;
+  loading: boolean;
+  error: string | null;
 }
 
-export const candidateFetcher: any = createAsyncThunk("/candidates/candidateFetcher", async() => {
-        const res = await fetch("users.json")
-        const data = res.json()
-        return data
-})
+export const initialState: AuthState = {
+  user: {
+    email: "",
+    password: "",
+    name: ""
+  } ,
+  loading: false,
+  error: null,
+};
 
-const candidatesSlice: any = createSlice({
-    name: "candidates",
-    initialState,
-    extraReducers(builder) {
-        builder.addCase(candidateFetcher.pending, (state) => {
-            state.isLoading = true
-        })
-        builder.addCase(candidateFetcher.fulfilled, (state, action) => {
-            state.candidates = action.payload
-            state.isLoading = false
-        })
-        builder.addCase(candidateFetcher.rejected, (state, action) => {
-            state.error = action.error.message
-        })
-    },
-    reducers: {
-        createCandidate: (state, action) => {
-            state.candidates = [...state.candidates, action.payload]
-        },
-        deleteCandidate: (state, action) => {
-            const remaining = state.candidates.filter((candidate: any) => candidate.id !== action.payload.id)
-            state.candidates = remaining
-        },
-        updateCandidate: (state, action) => {
-
-        }
+export const createCandidate = createAsyncThunk(
+  'auth/createCandidate',
+  async (candidate: Candidate, { rejectWithValue }) => {
+    try {
+      const {name, email, password } = candidate;
+      const { user: newUser } = await createUserWithEmailAndPassword(auth,email,password);
+      const currentUser = auth.currentUser;
+      if(currentUser !== null){
+          await updateProfile(currentUser, {displayName: name})
+          return newUser;
+      }
+    } catch (error) {
+      return rejectWithValue(error);
     }
-})
+  }
+);
 
-export const {createCandidate, deleteCandidate, updateCandidate} = candidatesSlice.actions;
 
-export default candidatesSlice.reducer
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
+  async ({email, password}: LoginUser, { rejectWithValue }) => {
+    try {
+      const { user: newUser } = await signInWithEmailAndPassword(auth,email,password);
+          return newUser;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+
+const candidateSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    setCurrentUser: (state, action) =>{
+        state.user = action.payload
+        state.loading = false;
+    }
+  },
+  extraReducers: (builder) => {
+      builder.addCase(createCandidate.pending, (state) => {
+        state.loading = true;
+      })
+      builder.addCase(createCandidate.fulfilled, (state, action: any) => {
+        state.user = action.payload;
+        state.loading = false;
+        window.location.replace("/");
+        toast.success("Candidate account created")
+      })
+      builder.addCase(createCandidate.rejected, (state, action) => {
+        state.error = action.payload as string;
+        state.loading = false;
+      })
+
+      builder.addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = null
+      })
+      builder.addCase(loginUser.fulfilled, (state, action: any) => {
+        state.user = action.payload;
+        state.loading = false;
+        window.location.replace("/")
+      })
+      builder.addCase(loginUser.rejected, (state, action) => {
+        state.error = action.payload as string;
+        state.loading = false;
+      })
+  },
+});
+
+export const {setCurrentUser} = candidateSlice.actions
+
+export default candidateSlice.reducer;
