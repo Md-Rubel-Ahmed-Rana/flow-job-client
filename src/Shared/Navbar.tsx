@@ -13,7 +13,8 @@ const Navbar = () => {
     const handleLogout = () => {
         signOut(auth)
         .then(() =>{
-            navigate("/")
+            navigate("/");
+            window.location.reload()
         })
     }
     return (
@@ -28,15 +29,15 @@ const Navbar = () => {
                     <li><Link to="/jobs">Jobs</Link></li>
                     <li><Link to="/">Friends</Link></li>
                     <li><Link to="/">Message</Link></li>
-                    <li><Link to="/dashboard">Dashboard</Link></li>
                     {
                         user.email ? <> 
-                                <li> <button onClick={handleLogout}>Logout</button> </li> 
-                                </>
-                             : 
-                               <>
-                            <li><Link to="/register">Register</Link></li>
-                            <li><Link to="/login">Login</Link></li>
+                        <li><Link to="/dashboard">Dashboard</Link></li>
+                        <li> <button onClick={handleLogout}>Logout</button> </li> 
+                        </>
+                        : 
+                        <>
+                        <li><Link to="/register">Register</Link></li>
+                        <li><Link to="/login">Login</Link></li>
                         </>
                     }
                     

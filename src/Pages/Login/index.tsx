@@ -2,9 +2,9 @@ import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import login from "../../assets/images/login_logo.png"
 import MyButton from '../../components/MyButton';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../features/users/usersSlice';
-import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 type Inputs = {
   email: string,
@@ -15,15 +15,16 @@ type Inputs = {
 const Login = () => {
     const { register, handleSubmit, reset } = useForm<Inputs>();
     const dispatch: any = useDispatch();
-    const navigate = useNavigate()
-
+    const {error} = useSelector((state: any) => state.usersReducer)
 
   const onSubmit: SubmitHandler<Inputs> = ({email, password}) => {
     dispatch(loginUser({email, password}))
     reset()
-    navigate("/")
   };
 
+  if(error){
+    toast.error(error.message);
+  }
 
   return (
     <div className='flex'>

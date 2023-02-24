@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { toast } from 'react-hot-toast';
 import auth from '../../firebase/firebase.config';
 
 interface User {
@@ -27,7 +28,6 @@ export const initialState: AuthState = {
   loading: false,
   error: null,
 };
-// : AsyncThunkAction
 
 export const createUser = createAsyncThunk(
   'auth/createUser',
@@ -76,17 +76,22 @@ const usersSlice = createSlice({
       builder.addCase(createUser.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
+        window.location.replace("/");
+        toast.success("User created successfully")
       })
       builder.addCase(createUser.rejected, (state, action) => {
         state.error = action.payload as string;
         state.loading = false;
       })
+
       builder.addCase(loginUser.pending, (state) => {
         state.loading = true;
+        state.error = null
       })
       builder.addCase(loginUser.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
+        window.location.replace("/")
       })
       builder.addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload as string;

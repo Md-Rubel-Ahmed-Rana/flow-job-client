@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { jobsFetcher } from './jobsSlice';
 
 const Jobs = () => {
@@ -12,13 +11,19 @@ const Jobs = () => {
     }, [dispatch])
 
 
+    const handleSearch  = (e: any) =>{
+        const searchText = e.target.value;
+        const newJobs = jobs.filter((job: any) => job.title.includes(searchText))
+        console.log(newJobs);
+    }
+
     return (
         <div >
             {isLoading &&  <h2 className="text-3xl text-center font-bold w-48 mx-auto bg-blue-800 text-white">Loading...</h2>}
             {error &&  <h2 className="text-3xl text-center font-bold w-48 mx-auto bg-blue-800 text-white">{error}</h2>}
             <h2 className="text-3xl text-center font-bold">Find Your Dream Job</h2>
             <div className='px-20 py-5 w-full text-center'>
-                <input className='w-4/5 px-10 py-2' type="text" placeholder='Searh job here' /> <button className='btn btn-sm btn-primary'>Search</button>
+                <input onChange={handleSearch} name="searchText" className='w-4/5 px-10 py-2' type="text" placeholder='Searh job here' /> <button className='btn btn-sm btn-primary'>Search</button>
             </div>
             <div>
                 {
@@ -34,7 +39,9 @@ const Jobs = () => {
                                     <p>Salary: {salary}</p>
                                 </div>
                                 <hr />
-                                <Link className='text-blue-700' to={website}>Website</Link>
+                                {
+                                    website && <a className='text-blue-700' target="_blank" href={website}>Website</a>
+                                }
                                 <br /><br />
                                 <div>
                                     <h2 className='text-xl font-bold'>Requirements</h2>

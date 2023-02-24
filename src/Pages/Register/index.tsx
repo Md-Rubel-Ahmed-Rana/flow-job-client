@@ -32,7 +32,7 @@ const Register = () => {
                 <button onClick={() => setPosition(true)} className={`${position ? "bg-white text-black" : "bg-blue-800 text-white"} font-bold text-white rounded p-2 m-2 outline-none`}>Employer</button>
             </div>
             {
-                position ? <Recruiter />
+                position ? <Recruiter /> 
                          : <Candidate />
             }
             <div onClick={handleGoogleLogin} className='px-10 mb-5'>

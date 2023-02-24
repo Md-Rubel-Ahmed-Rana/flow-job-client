@@ -43,8 +43,8 @@ const jobsSlice = createSlice({
             state.jobs = [...state.jobs, action.payload]
         },
         deleteJob: (state, action) => {
-            const remaining = state.jobs.filter((candidate: any) => candidate.id !== action.payload.id)
-            state.jobs = remaining
+            const remainingJobs = state.jobs.filter((job: any) => job.id !== action.payload.id)
+            state.jobs = remainingJobs
         }
     }
 })
