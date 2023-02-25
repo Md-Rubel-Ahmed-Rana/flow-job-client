@@ -13,6 +13,7 @@ import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import ErrorPage from '../Shared/ErrorPage';
+import PrivateRoute from './PrivateRoute';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <DashboardLayout />,
+        element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         children: [
             {
                 path: "/dashboard/admins",
