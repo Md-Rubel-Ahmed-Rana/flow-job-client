@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import MyButton from '../../components/MyButton';
 import { useCreateCandidateMutation } from '../../features/candidate/candidateApi';
@@ -13,14 +14,20 @@ type Inputs = {
 
 
 const Candidate = () => {
-    const { register, handleSubmit, reset } = useForm<Inputs>();
+    const { register, handleSubmit } = useForm<Inputs>();
     const [createCandidate] = useCreateCandidateMutation()
     const dispatch: any = useDispatch()
 
-    const onSubmit: SubmitHandler<Inputs> = ({name, email, password }) => {    
-        dispatch(createUser({name, email, password }));
-        createCandidate({name, email, role: "candidate"})
-        reset()
+    const onSubmit: SubmitHandler<Inputs> = async({name, email, password }) => {    
+        dispatch(createUser({name, email, password }))
+        .then((result: any) => {
+            if(result.payload.uid){
+                createCandidate({name, email, role: "candidate"});
+                window.location.replace("/");
+            }else{
+                return toast.error("There was a problem. Try again with different email")
+            }
+        })
     };
     
 

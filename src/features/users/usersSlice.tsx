@@ -76,7 +76,7 @@ const usersSlice = createSlice({
       builder.addCase(createUser.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
-        window.location.replace("/");
+        // window.location.replace("/");
         toast.success("User created successfully")
       })
       builder.addCase(createUser.rejected, (state, action) => {
@@ -91,7 +91,7 @@ const usersSlice = createSlice({
       builder.addCase(loginUser.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
-        window.location.replace("/")
+        // window.location.replace("/")
       })
       builder.addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload as string;

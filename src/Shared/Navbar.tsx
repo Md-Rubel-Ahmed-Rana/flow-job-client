@@ -51,7 +51,7 @@ const Navbar = () => {
             </div>
             <div className='flex items-center gap-10'>
                 {
-                    user?.displayName ? <h4 className='text-2xl font-extrabold'>{user?.displayName}</h4>
+                    user?.name ? <h4 className='text-2xl font-extrabold'>{user?.name}</h4>
                                     :  null
                 }
                 {

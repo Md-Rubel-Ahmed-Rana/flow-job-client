@@ -76,7 +76,6 @@ const candidateSlice = createSlice({
       builder.addCase(createCandidate.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
-        window.location.replace("/");
         toast.success("Candidate account created")
       })
       builder.addCase(createCandidate.rejected, (state, action) => {
