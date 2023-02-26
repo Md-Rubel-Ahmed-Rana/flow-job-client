@@ -9,7 +9,13 @@ import auth from '../firebase/firebase.config';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const {user} = useSelector((state: any) => state.usersReducer)
+    const {user} = useSelector((state: any) => {
+        if(state.candidatesReducer){
+            return state.candidatesReducer
+        }else{
+            return state.employerReducer
+        }
+    });
     const handleLogout = () => {
         signOut(auth)
         .then(() =>{

@@ -12,9 +12,11 @@ import { setCurrentUser } from './features/users/usersSlice';
 function App() {
   const dispatch = useDispatch()
  useEffect(() => {
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async(user) => {
     if(user){
-      dispatch(setCurrentUser(user))
+      const res = await fetch(`http://localhost:5000/currentUser/${user?.email}`)
+      const data = await res.json()
+      dispatch(setCurrentUser(data.user))
     }
   })
  }, [dispatch])

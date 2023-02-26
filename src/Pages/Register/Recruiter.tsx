@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import MyButton from '../../components/MyButton';
-import { useRegisterMutation } from '../../features/users/usersApi';
+import { useEmployerRegisterMutation } from '../../features/employer/employerApi';
 import { createUser } from '../../features/users/usersSlice';
 
 type Inputs = {
@@ -19,11 +19,11 @@ type Inputs = {
 const Recruiter = () => {
     const { register, handleSubmit, reset } = useForm<Inputs>();
     const dispatch: any = useDispatch();
-    const [createEmployer] = useRegisterMutation()
+    const [createEmployer] = useEmployerRegisterMutation()
 
     const onSubmit: SubmitHandler<Inputs> = ({name, password, email, company, address, officeEmail}) => {
         dispatch(createUser({name, email, password}))
-        createEmployer({name, email, company, address, officeEmail, role: "employer"})
+        createEmployer({name, email, company, address, officeEmail})
         reset()
     };
 
@@ -32,7 +32,7 @@ const Recruiter = () => {
             <h4 className="text-3xl text-center font-bold text-white">Create Employer account</h4>
             <div className='mb-3 '>
                 <p className='text-lg text-white font-semibold mb-1'>Upload image.</p>
-                <input type="file" className='p-2 w-full bg-white rounded' {...register("image", { required: true })} />
+                <input type="file" className='p-2 w-full bg-white rounded' {...register("image")} />
             </div>
             <div className='mb-3'>
                 <p className='text-lg text-white font-semibold mb-1'>Your name.</p>

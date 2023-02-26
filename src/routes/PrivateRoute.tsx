@@ -7,7 +7,7 @@ type ChilType = {
 
 const PrivateRoute = ({children}: ChilType ) => {
     const location = useLocation()
-    const user = false;
+    const user = true;
     const isLoading = false;
     if(isLoading){
         return <h1 className='text-4xl'>Loading...</h1>
