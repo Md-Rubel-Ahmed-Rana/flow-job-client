@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import MyButton from '../../components/MyButton';
 import { useEmployerRegisterMutation } from '../../features/employer/employerApi';
-import { createUser } from '../../features/users/usersSlice';
+import { createEmployer } from '../../features/employer/employerSlice';
 
 type Inputs = {
   name: string,
@@ -20,14 +20,13 @@ type Inputs = {
 const Recruiter = () => {
     const { register, handleSubmit } = useForm<Inputs>();
     const dispatch: any = useDispatch();
-    const [createEmployer] = useEmployerRegisterMutation()
+    const [storeEmployer] = useEmployerRegisterMutation()
 
     const onSubmit: SubmitHandler<Inputs> = ({name, password, email, company, address, officeEmail}) => {
-        dispatch(createUser({name, email, password}))
+        dispatch(createEmployer({name, email, password}))
         .then((result: any) => {
             if(result.payload.uid){
-                createEmployer({name, email, company, address, officeEmail})
-                window.location.replace("/");
+                storeEmployer({name, email, company, address, officeEmail});
             }else{
                 return toast.error("There was a problem. Try again with different email")
             }

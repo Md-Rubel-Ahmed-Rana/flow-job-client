@@ -2,29 +2,22 @@ import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import login from "../../assets/images/login_logo.png"
 import MyButton from '../../components/MyButton';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../features/users/usersSlice';
-import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../features/candidate/candidateSlice';
 
 type Inputs = {
   email: string,
   password: string,
-  null: string,
 };
 
 const Login = () => {
     const { register, handleSubmit, reset } = useForm<Inputs>();
     const dispatch: any = useDispatch();
-    const {error} = useSelector((state: any) => state.usersReducer)
 
   const onSubmit: SubmitHandler<Inputs> = ({email, password}) => {
     dispatch(loginUser({email, password}))
     reset()
   };
-
-  if(error){
-    toast.error(error.message);
-  }
 
   return (
     <div className='flex'>

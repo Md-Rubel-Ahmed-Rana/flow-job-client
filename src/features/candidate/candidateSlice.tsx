@@ -6,7 +6,7 @@ import auth from '../../firebase/firebase.config';
 interface Candidate {
     password: string
     email: string
-    name: string
+    name: string,
 }
 interface LoginUser {
     password: string
@@ -28,6 +28,7 @@ export const initialState: AuthState = {
   loading: false,
   error: null,
 };
+// import navigate from singup
 
 export const createCandidate = createAsyncThunk(
   'auth/createCandidate',
@@ -90,7 +91,6 @@ const candidateSlice = createSlice({
       builder.addCase(loginUser.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
-        window.location.replace("/")
       })
       builder.addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload as string;

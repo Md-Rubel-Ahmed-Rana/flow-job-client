@@ -1,62 +1,57 @@
-import React, { useReducer } from 'react';
+import React from 'react';
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useCreateJobPostMutation } from '../../../features/jobs/jobApi';
+
+type Inputs = {
+  title: string,
+  location: string,
+  jobType: string,
+  employerEmail: string,
+  officialEmail: string,
+  website: string,
+  salary: string,
+  workDay: string,
+  workTime: string,
+  aboutEmployer: string,
+  requiredTechs: string,
+  goodToTechs: string,
+  requirements: string,
+  responsibilities: string,
+  aboutCompany: string,
+};
 
 const AddJob = () => {
-    const initialState = {
-        title: "",
-        location: "",
-        type: "",
-        recruiterEmail: "",
-        officialEmail: "",
-        website: "",
-        salary: "",
-        workDay: "",
-        workTime: "",
-        about: "",
-    }
+    const { register, handleSubmit } = useForm<Inputs>();
+    const [postJob] = useCreateJobPostMutation();
 
-    const jobReducer = (state = initialState , action: any) => {
-        switch (action.type) {
-            case "INPUT":
-                return {
-                    ...state,
-                    [action.payload.name] : action.payload.value
-                }
-            default:
-                return state;
-        }
-    }
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        postJob(data)
+        console.log(data)
+    };
 
-    const [state, dispatch] = useReducer(jobReducer, initialState)
-    console.log(state);
-
-    const action = (e: any) => {
-        return {type: "INPUT", 
-        payload: {name: e.target.name, value: e.target.value}
-        }
-    }
 
     return (
         <div>
             <h3 className="text-4xl text-center font-bold">Add New Job</h3>
-            <form  className='w-full p-10'>
+            <form onSubmit={handleSubmit(onSubmit)}  className='w-full p-10'>
                 <div className='flex justify-between gap-40'>
                     <div className='mb-3'>
                     <label htmlFor="title">
                     Title:
-                    <input onChange={(e) => dispatch(action(e))} name="title" className='ml-2 p-2' type="text" placeholder='Enter job title' /> 
+                    <input className='ml-2 p-2' {...register("title", { required: true })} />
                      </label>
                     </div>
                     <div className='mb-3'>
                         <label htmlFor="Location">
                         Location:
-                        <input onChange={(e) => dispatch(action(e))}  className='ml-2 p-2' name='location' type="text" placeholder='Enter job location' /> 
+                         <input className='ml-2 p-2' {...register("location", { required: true })} />
                     </label>
                     </div>
                 </div>
                 <div className='flex justify-between gap-40'>
                     <div className='mb-3'>
                         <span>Job type: </span>
-                    <select onChange={(e) => dispatch(action(e))}  className='p-2' name="type" id="type">
+                    <select {...register("jobType", { required: true })}  className='p-2' name="type" id="type">
                         <option value="Remote">Remote</option>
                         <option value="Onsite">Onsite</option>
                         <option value="Remote/Onsite">Remote/Onsite</option>
@@ -64,8 +59,8 @@ const AddJob = () => {
                     </div>
                     <div className='mb-3'>
                         <label htmlFor="Location">
-                        Recruiter email:
-                        <input onChange={(e) => dispatch(action(e))}  name='recruiterEmail' className='ml-2 p-2' type="email" placeholder='Enter recruiter email' /> 
+                        Employer email:
+                        <input className='ml-2 p-2' {...register("employerEmail", { required: true })} />
                     </label>
                     </div>
                 </div>
@@ -73,27 +68,27 @@ const AddJob = () => {
                     <div className='mb-3'>
                         <label htmlFor="Location">
                         Official email:
-                        <input onChange={(e) => dispatch(action(e))}  name='officialEmail' className='ml-2 p-2' type="email" placeholder='Enter official email' /> 
+                        <input className='ml-2 p-2' {...register("officialEmail", { required: true })} />
                     </label>
                     </div>
                     <div className='mb-3'>
                         <label htmlFor="website">
                         Website:
-                        <input onChange={(e) => dispatch(action(e))}  name='website' className='ml-2 p-2' type="text" placeholder='Enter website link' /> 
+                        <input className='ml-2 p-2' {...register("website", { required: true })} />
                     </label>
                     </div>
                 </div>
                  <div className='flex justify-between gap-40'>
                     <div className='mb-3'>
                         <label htmlFor="Location">
-                        Salary:
-                        <input onChange={(e) => dispatch(action(e))}  name='salary' className='ml-2 p-2' type="number" placeholder='Enter salary per month' /> 
+                        Salary: 
+                        <input className='ml-2 p-2' {...register("salary", { required: true })} />
                     </label>
                     </div>
                     <div className='mb-3'>
                         <label htmlFor="Location">
                         Working Day:
-                        <input onChange={(e) => dispatch(action(e))}  name='workDay' className='ml-2 p-2' type="number" placeholder='Working Day' /> 
+                        <input className='ml-2 p-2' {...register("workDay", { required: true })} /> 
                     </label>
                     </div>
                 </div>
@@ -101,44 +96,46 @@ const AddJob = () => {
                     <div className='mb-3'>
                         <label htmlFor="Location">
                         Working Time:
-                        <input onChange={(e) => dispatch(action(e))}  name='workTime' className='ml-2 p-2' type="text" placeholder='Working Time' /> 
+                        <input className='ml-2 p-2' {...register("workTime", { required: true })} /> 
                     </label>
                     </div>
                     <div className='mb-3 flex gap-3'>
                         <p>About</p>
-                        <textarea onChange={(e) => dispatch(action(e))}  name="about" id="about" cols={20} rows={2}></textarea>
+                        <textarea {...register("aboutEmployer", { required: true })} placeholder="About yourself"  name="aboutEmployer" id="about" cols={20} rows={2}></textarea>
+
                     </div>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="requiredTechs">
                         Required Techs:
-                        <input onChange={(e) => dispatch(action(e))} className='p-2 ml-2' type="text" name='requiredTechs' placeholder='Enter required technologies' />
+                         <input className='ml-2 p-2' {...register("requiredTechs", { required: true })} /> 
                     </label>
                 </div>
                 <div className='mb-3'>
-                    <label htmlFor="requiredTechs">
+                    <label htmlFor="goodToTechs">
                         Good To Have Techs:
-                        <input onChange={(e) => dispatch(action(e))} className='p-2 ml-2' type="text" name='requiredTechs' placeholder='Enter optional technologies' />
+                         <input className='ml-2 p-2' {...register("goodToTechs", { required: true })} /> 
                     </label>
                 </div>
                 <div className='mb-3'>
                     <label className='flex' htmlFor="requirements">
                         <span>Responsibilities:</span>
-                        <textarea onChange={(e) => dispatch(action(e))} className='p-2 ml-2' name="requirements" id="requirements" placeholder='Requirements' cols={30} rows={3}></textarea>
+                        <textarea {...register("requirements", { required: true })} className='p-2 ml-2 w-full' name="requirements" id="requirements" placeholder='Requirements' cols={30} rows={3}></textarea>
                     </label>
                 </div>
                 <div className='mb-3'>
                     <label className='flex' htmlFor="requiredTechs">
                         <span>Responsibilities:</span>
-                        <textarea onChange={(e) => dispatch(action(e))} className='p-2 ml-2' name="responsibilities" id="responsibilities" placeholder='Responsibilities' cols={30} rows={3}></textarea>
+                        <textarea {...register("responsibilities", { required: true })} className='p-2 ml-2 w-full' name="responsibilities" id="responsibilities" placeholder='Responsibilities' cols={30} rows={3}></textarea>
                     </label>
                 </div>
                 <div className='mb-3'>
                     <label className='flex' htmlFor="requiredTechs">
-                        <span>About:</span>
-                        <textarea onChange={(e) => dispatch(action(e))} className='p-2 ml-2' name="about" id="about" placeholder='About your company' cols={30} rows={3}></textarea>
+                        <span>About company:</span>
+                        <textarea  {...register("aboutCompany", { required: true })} className='p-2 ml-2 w-full' name="aboutCompany" id="about" placeholder='About your company' cols={30} rows={3}></textarea>
                     </label>
                 </div>
+                <button className='bg-blue-600 px-10 py-3 rounded w-full text-white font-bold' type="submit">Add Job</button>
             </form>
         </div>
     );

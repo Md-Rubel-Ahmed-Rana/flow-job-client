@@ -5,7 +5,7 @@ import router from './routes/route';
 import { onAuthStateChanged } from 'firebase/auth';
 import auth from './firebase/firebase.config';
 import { useDispatch } from 'react-redux';
-import { setCurrentUser } from './features/users/usersSlice';
+import { setCurrentUser } from './features/candidate/candidateSlice';
 
 
 

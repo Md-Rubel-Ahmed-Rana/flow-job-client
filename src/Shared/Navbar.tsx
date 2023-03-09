@@ -16,6 +16,7 @@ const Navbar = () => {
             return state.employerReducer
         }
     });
+    
     const handleLogout = () => {
         signOut(auth)
         .then(() =>{
@@ -36,7 +37,7 @@ const Navbar = () => {
                     <li><Link to="/">Friends</Link></li>
                     <li><Link to="/">Message</Link></li>
                     {
-                        user.email ? <> 
+                        user?.email ? <> 
                         <li><Link to="/dashboard">Dashboard</Link></li>
                         <li> <button onClick={handleLogout}>Logout</button> </li> 
                         </>
@@ -46,7 +47,6 @@ const Navbar = () => {
                         <li><Link to="/login">Login</Link></li>
                         </>
                     }
-                    
                 </ul>
             </div>
             <div className='flex items-center gap-10'>

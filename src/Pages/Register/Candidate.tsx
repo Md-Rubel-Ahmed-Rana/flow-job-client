@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import MyButton from '../../components/MyButton';
 import { useCreateCandidateMutation } from '../../features/candidate/candidateApi';
-import { createUser } from '../../features/users/usersSlice';
+import { createCandidate } from '../../features/candidate/candidateSlice';
 
 type Inputs = {
   name: string,
@@ -15,15 +15,15 @@ type Inputs = {
 
 const Candidate = () => {
     const { register, handleSubmit } = useForm<Inputs>();
-    const [createCandidate] = useCreateCandidateMutation()
-    const dispatch: any = useDispatch()
+    const [storeCandidate] = useCreateCandidateMutation()
+    const dispatch: any = useDispatch();
+    
 
     const onSubmit: SubmitHandler<Inputs> = async({name, email, password }) => {    
-        dispatch(createUser({name, email, password }))
+        dispatch(createCandidate({name, email, password }))
         .then((result: any) => {
             if(result.payload.uid){
-                createCandidate({name, email, role: "candidate"});
-                window.location.replace("/");
+                storeCandidate({name, email, role: "candidate"});
             }else{
                 return toast.error("There was a problem. Try again with different email")
             }

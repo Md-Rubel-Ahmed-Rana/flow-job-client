@@ -70,7 +70,6 @@ const employerSlice = createSlice({
       builder.addCase(createEmployer.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
-        // window.location.replace("/");
         toast.success("Candidate account created")
       })
       builder.addCase(createEmployer.rejected, (state, action: any) => {
@@ -85,7 +84,6 @@ const employerSlice = createSlice({
       builder.addCase(loginUser.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
-        // window.location.replace("/")
       })
       builder.addCase(loginUser.rejected, (state, action: any) => {
         state.loading = false;
