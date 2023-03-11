@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 
 const JobDetails = () => {
      const {id} = useParams();
+    
+     
     return (
         <div className='m-10'>
             <h1 className="text-3xl">Job Details: {id}</h1>
