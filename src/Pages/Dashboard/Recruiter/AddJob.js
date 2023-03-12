@@ -24,26 +24,27 @@ const AddJob = () => {
         }
     };
 
-
     return (
         <div>
         <h3 className="text-4xl text-center font-bold">Add New Job</h3>
         <form onSubmit={handleSubmit(onSubmit)}  className='w-full p-10'>
+            {/* Title & location */}
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                 <label htmlFor="title">
                 <span className="text-xl my-2 font-semibold"> Job Title</span>
-                        <input ref={register} className='ml-2 p-2 text-xl' {...register("title", { required: true })} />
+                        <input ref={register} className='ml-2 p-2 text-xl' {...register("title", { required: true })} placeholder="Full Stack Developer" />
                     </label>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="Location">
                         <span className="text-xl my-2 font-semibold">Location</span>
-                        <input className='ml-2 p-2 text-xl' {...register("location", { required: true })} />
+                            <input className='ml-2 p-2 text-xl' {...register("location", { required: true })} placeholder="City, Country" />
                 </label>
                 </div>
             </div>
 
+                {/* job place & employer email  */}
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                     <span className="text-xl my-2 mr-2 font-semibold">Job Place:</span>
@@ -61,41 +62,44 @@ const AddJob = () => {
                 </div>
             </div>
 
+                {/* official email & website  */}
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                     <label htmlFor="Location">
                         <span className="text-xl my-2 font-semibold">Official email</span>
-                        <input className='ml-2 p-2 text-xl' {...register("officialEmail", { required: true })} />
+                        <input className='ml-2 p-2 text-xl' {...register("officialEmail", { required: true })} placeholder="office@gmail.com" />
                 </label>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="website">
                         <span className="text-xl my-2 font-semibold">Website</span>
-                        <input className='ml-2 p-2 text-xl' {...register("website", { required: true })} />
+                            <input className='ml-2 p-2 text-xl' {...register("website", { required: true })} placeholder="www.example.com" />
                 </label>
                 </div>
             </div>
 
-                <div className='flex justify-between gap-40'>
+            {/* salary & working day  */}
+            <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                     <label htmlFor="Location">
                         <span className="text-xl my-2 font-semibold">Salary Range</span>
-                        <input className='ml-2 p-2 text-xl' {...register("salary", { required: true })} />
+                        <input className='ml-2 p-2 text-xl' {...register("salary", { required: true })} placeholder="20k-30k" />
                 </label>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="Location">
                         <span className="text-xl my-2 font-semibold">Working Day/week</span>
-                        <input className='ml-2 p-2 text-xl' {...register("workDay", { required: true })} /> 
+                            <input className='ml-2 p-2 text-xl' {...register("workDay", { required: true })} placeholder="5/6" /> 
                 </label>
                 </div>
             </div>
 
+            {/* working time & job type  */}
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                     <label htmlFor="Location">
                         <span className="text-xl my-2 font-semibold">Working Time</span>
-                        <input className='ml-2 p-2 text-xl' {...register("workTime", { required: true })} /> 
+                            <input className='ml-2 p-2 text-xl' {...register("workTime", { required: true })} placeholder="6h-8h" /> 
                 </label>
                 </div>
                 <div className='mb-3'>
@@ -108,12 +112,28 @@ const AddJob = () => {
                 </div>
             </div>
 
+                {/* Experience & Employer Type */}
+            <div className='flex justify-between gap-40'>
+                <div className='mb-3'>
+                    <label htmlFor="Location">
+                        <span className="text-xl my-2 font-semibold">Experience </span>
+                        <input className='ml-2 p-2 text-xl' {...register("experience", { required: true })} placeholder="Example: 2-5 years" /> 
+                </label>
+                </div>
+                    <div className='mb-3'>
+                        <label htmlFor="Location">
+                            <span className="text-xl my-2 font-semibold">Employer Type </span>
+                            <input className='ml-2 p-2 text-xl' {...register("employerType", { required: true })} placeholder="Example: HR or Recruiter" />
+                        </label>
+                    </div>
+            </div>
 
+                {/* Company Name & Company Size */}
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                     <label htmlFor="Location">
                         <span className="text-xl my-2 font-semibold">Company Name</span>
-                        <input className='ml-2 p-2 text-xl' {...register("companyName", { required: true })} /> 
+                            <input className='ml-2 p-2 text-xl' {...register("companyName", { required: true })} placeholder="Hi-Tech Private Limited" /> 
                 </label>
                 </div>
                 <div className='mb-3'>
@@ -127,6 +147,7 @@ const AddJob = () => {
                 </div>
             </div>
 
+            {/* overview */}
             <div>
                 <h2 className="text-xl font-semibold">Job overview</h2>
                 <textarea className="w-full p-4" {...register("overview", { required: true })} name="overview" id="overview" cols="30" rows="5"></textarea>
