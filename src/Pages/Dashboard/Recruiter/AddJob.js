@@ -6,9 +6,9 @@ import { useCreateJobPostMutation } from '../../../features/jobs/jobApi';
 const AddJob = () => {
     const navigate = useNavigate()
     const { register, handleSubmit, control, reset } = useForm();
-    const {fields: skillsFields, append: addSkills} = useFieldArray({control, name: "skills"});
-    const { fields: reqFields, append: addRequirements } = useFieldArray({control, name: "requirements"});
-    const { fields: resFields, append: addResponsibility } = useFieldArray({control, name: "responsibilities"});
+    const {fields: skillsFields, append: addSkills, remove: removeSkill} = useFieldArray({control, name: "skills"});
+    const { fields: reqFields, append: addRequirements, remove: removeRequirement } = useFieldArray({control, name: "requirements"});
+    const { fields: resFields, append: addResponsibility, remove: removeResponsibility } = useFieldArray({control, name: "responsibilities"});
 
     const [postJob] = useCreateJobPostMutation();
     const onSubmit = async(data) => {
@@ -71,6 +71,7 @@ const AddJob = () => {
                     </label>
                     </div>
                 </div>
+
                  <div className='flex justify-between gap-40'>
                     <div className='mb-3'>
                         <label htmlFor="Location">
@@ -85,6 +86,7 @@ const AddJob = () => {
                     </label>
                     </div>
                 </div>
+
                 <div className='flex justify-between gap-40'>
                     <div className='mb-3'>
                         <label htmlFor="Location">
@@ -109,6 +111,7 @@ const AddJob = () => {
                                         type='text'
                                         {...register(`skills[${index}]`)}
                                     />
+                                    <span onClick={() => removeSkill(index)} className="py-2 px-5 cursor-pointer hover:bg-red-700 bg-red-500 rounded-md text-white">Delete</span>
                                 </div>
                             );
                         })}
@@ -127,6 +130,7 @@ const AddJob = () => {
                                         type='text'
                                         {...register(`requirements[${index}]`)}
                                     />
+                                    <span onClick={() => removeRequirement(index)} className="py-2 px-5 cursor-pointer hover:bg-red-700 bg-red-500 rounded-md text-white">Delete</span>
                                 </div>
                             );
                         })}
@@ -144,6 +148,7 @@ const AddJob = () => {
                                         type='text'
                                         {...register(`responsibilities[${index}]`)}
                                     />
+                                    <span onClick={() => removeResponsibility(index)} className="py-2 px-5 cursor-pointer hover:bg-red-700 bg-red-500 rounded-md text-white">Delete</span>
                                 </div>
                             );
                         })}

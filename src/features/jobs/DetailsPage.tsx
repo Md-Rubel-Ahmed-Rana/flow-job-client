@@ -1,16 +1,15 @@
-import axios from 'axios';
-import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
+import { useGetSingleJobQuery } from './jobApi';
+
+
 
 const JobDetails = () => {
-     const {id} = useParams();
-     const [details, setDetails] = useState({});
-     const {title}: any = details
+     const {id}: any = useParams();
+     const {data} = useGetSingleJobQuery(id);
 
-     useEffect(() => {
-        axios.get(`http://localhost:5000/api/jobs/${id}`)
-        .then((data) => setDetails(data.data.job))
-     }, [id])
+     const {title, employerEmail, jobType, website, salary, workDay, workTime, aboutEmployer, location, skills, requirements, responsibilities } = data?.job || {}
+
+     console.log(data?.job);
 
     return (
         <div className='m-10'>
