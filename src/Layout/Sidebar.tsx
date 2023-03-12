@@ -24,7 +24,7 @@ const Sidebar = () => {
                 }
                 
                 {
-                    user.role === "recruiter" && <div>
+                    user.role === "employer" && <div>
                         <li className='font-bold hover:underline  p-1 rounded text-xl'><Link to="/dashboard/myposts">My Job Posts</Link></li>
                         <li className='font-bold hover:underline  p-1 rounded text-xl'><Link to="/dashboard/newjob">Add New Job</Link></li>
                     </div>

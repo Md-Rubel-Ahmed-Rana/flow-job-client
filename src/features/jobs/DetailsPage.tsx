@@ -1,12 +1,15 @@
+import { useSelector } from 'react-redux';
 import {  useNavigate, useParams } from 'react-router-dom';
-import { useGetSingleJobQuery } from './jobApi';
+import { useApplyJobMutation, useGetSingleJobQuery } from './jobApi';
 
 
 
 const JobDetails = () => {
+   const { candidatesReducer: {user} }: any = useSelector((state) => state);
     const navigate = useNavigate()
      const {id}: any = useParams();
      const {data} = useGetSingleJobQuery(id);
+     const [applyJob] = useApplyJobMutation();
 
 
      const {title, employerEmail, jobType, jobPlace, website, salary, workDay, workTime, location, skills, requirements, responsibilities, companySize, companyName, experience, employerType } = data?.job || {}
@@ -16,10 +19,12 @@ const JobDetails = () => {
             <div className='my-5'>
                 <button onClick={() => navigate(-1)} className='bg-blue-600 rounded-md py-2 px-5 text-lg text-white font-semibold'> Back</button>
             </div>
-            <h1 className="text-3xl font-bold">Job Position: {title} ({jobPlace})</h1>
-            <h5 className='text-xl font-semibold'>Location: {location}.</h5>
-            <h5 className='text-xl font-semibold'>Company Name: {companyName}.</h5>
-            <h5 className='text-xl font-semibold'>Company Size: {companySize}.</h5>
+            <div>
+                <h1 className="text-3xl font-bold">Job Position: {title} ({jobPlace})</h1>
+                <h5 className='text-xl font-semibold'>Location: {location}.</h5>
+                <h5 className='text-xl font-semibold'>Company Name: {companyName}.</h5>
+                <h5 className='text-xl font-semibold'>Company Size: {companySize}.</h5>
+            </div>
 
             <div className='mt-5 text-xl font-medium'>
                 <p>Work Day: {workDay} days/week</p>
@@ -31,12 +36,15 @@ const JobDetails = () => {
 
             <div className='mt-5 text-xl font-medium'>
                 <p>Employer Email: {employerEmail}</p>
-                <p>Employer Position: {employerType}</p>
+                <p>Employer Position: {employerType ? employerType : "Unknown"}</p>
                 <p>Website: <a href={website} rel="noreferrer" target={'_blank'}  className='text-blue-700 font-extrabold' >Visit Now</a></p>
             </div>
             
+            {/* apply button  */}
             <div>
-                <button className='bg-blue-700 py-2 px-16 mt-4 text-white rounded'>Apply</button>
+                {
+                    user?.role !== "employer" && <button onClick={() => applyJob(id)} className='bg-blue-700 py-2 px-16 mt-4 text-white rounded'>Apply</button>
+                }
             </div>
 
             <div>
@@ -58,7 +66,7 @@ const JobDetails = () => {
             </ul>
 
             <h5 className='text-2xl font-semibold mt-5'>Responsibilities</h5>
-            <ul className='text-xl font-medium'>
+            <ul className='text-xl mb-5 font-medium'>
                 {
                 responsibilities && responsibilities.map((responsibility: "") => <li className='list-disc ml-5'>{responsibility}</li>)
                 }

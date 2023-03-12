@@ -32,14 +32,14 @@ const AddJob = () => {
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                 <label htmlFor="title">
-                <span className="text-xl my-2 font-semibold"> Job Title</span>
-                        <input ref={register} className='ml-2 p-2 text-xl' {...register("title", { required: true })} placeholder="Full Stack Developer" />
+                <span className="my-2 font-semibold"> Job Title</span>
+                        <input ref={register} className='ml-2 p-2 ' {...register("title", { required: true })} placeholder="Full Stack Developer" />
                     </label>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="Location">
-                        <span className="text-xl my-2 font-semibold">Location</span>
-                            <input className='ml-2 p-2 text-xl' {...register("location", { required: true })} placeholder="City, Country" />
+                        <span className="my-2 font-semibold">Location</span>
+                            <input className='ml-2 p-2' {...register("location", { required: true })} placeholder="City, Country" />
                 </label>
                 </div>
             </div>
@@ -47,8 +47,8 @@ const AddJob = () => {
                 {/* job place & employer email  */}
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
-                    <span className="text-xl my-2 mr-2 font-semibold">Job Place:</span>
-                    <select {...register("jobPlace", { required: true })} className='p-2 text-xl' name="jobPlace" id="jobPlace">
+                    <span className=" my-2 mr-2 font-semibold">Job Place:</span>
+                    <select {...register("jobPlace", { required: true })} className='p-2 ' name="jobPlace" id="jobPlace">
                     <option value="Remote">Remote</option>
                     <option value="Onsite">Onsite</option>
                     <option value="Remote/Onsite">Remote/Onsite</option>
@@ -56,8 +56,8 @@ const AddJob = () => {
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="Location">
-                        <span className="text-xl my-2 font-semibold">Employer email</span>
-                        <input readOnly defaultValue={user?.email} className='ml-2 p-2 text-xl' {...register("employerEmail", { required: true })} />
+                        <span className=" my-2 font-semibold">Employer email</span>
+                        <input readOnly defaultValue={user?.email} className='ml-2 p-2 ' {...register("employerEmail", { required: true })} />
                 </label>
                 </div>
             </div>
@@ -66,14 +66,14 @@ const AddJob = () => {
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                     <label htmlFor="Location">
-                        <span className="text-xl my-2 font-semibold">Official email</span>
-                        <input className='ml-2 p-2 text-xl' {...register("officialEmail", { required: true })} placeholder="office@gmail.com" />
+                        <span className=" my-2 font-semibold">Official email</span>
+                            <input defaultValue={user?.officeEmail} className='ml-2 p-2 ' {...register("officialEmail", { required: true })} readOnly  />
                 </label>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="website">
-                        <span className="text-xl my-2 font-semibold">Website</span>
-                            <input className='ml-2 p-2 text-xl' {...register("website", { required: true })} placeholder="www.example.com" />
+                        <span className=" my-2 font-semibold">Website</span>
+                            <input className='ml-2 p-2 ' {...register("website", { required: true })} placeholder="www.example.com" />
                 </label>
                 </div>
             </div>
@@ -82,14 +82,14 @@ const AddJob = () => {
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                     <label htmlFor="Location">
-                        <span className="text-xl my-2 font-semibold">Salary Range</span>
-                        <input className='ml-2 p-2 text-xl' {...register("salary", { required: true })} placeholder="20k-30k" />
+                        <span className=" my-2 font-semibold">Salary Range</span>
+                        <input className='ml-2 p-2 ' {...register("salary", { required: true })} placeholder="20k-30k" />
                 </label>
                 </div>
                 <div className='mb-3'>
                     <label htmlFor="Location">
-                        <span className="text-xl my-2 font-semibold">Working Day/week</span>
-                            <input className='ml-2 p-2 text-xl' {...register("workDay", { required: true })} placeholder="5/6" /> 
+                        <span className=" my-2 font-semibold">Working Day/week</span>
+                            <input className='ml-2 p-2 ' {...register("workDay", { required: true })} placeholder="5/6" /> 
                 </label>
                 </div>
             </div>
@@ -98,13 +98,13 @@ const AddJob = () => {
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                     <label htmlFor="Location">
-                        <span className="text-xl my-2 font-semibold">Working Time</span>
-                            <input className='ml-2 p-2 text-xl' {...register("workTime", { required: true })} placeholder="6h-8h" /> 
+                        <span className=" my-2 font-semibold">Working Time</span>
+                            <input className='ml-2 p-2 ' {...register("workTime", { required: true })} placeholder="6h-8h" /> 
                 </label>
                 </div>
                 <div className='mb-3'>
-                    <span className="text-xl my-2 mr-2 font-semibold">Job Type:</span>
-                    <select {...register("jobType", { required: true })} className='p-2 text-xl' name="jobType" id="jobType">
+                    <span className=" my-2 mr-2 font-semibold">Job Type:</span>
+                    <select {...register("jobType", { required: true })} className='p-2 ' name="jobType" id="jobType">
                         <option selected value="Full-Time">Full-Time</option>
                         <option value="Part-Time">Part-Time</option>
                         <option value="Intern">Intern</option>
@@ -116,14 +116,14 @@ const AddJob = () => {
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                     <label htmlFor="Location">
-                        <span className="text-xl my-2 font-semibold">Experience </span>
-                        <input className='ml-2 p-2 text-xl' {...register("experience", { required: true })} placeholder="Example: 2-5 years" /> 
+                        <span className=" my-2 font-semibold">Experience </span>
+                        <input className='ml-2 p-2 ' {...register("experience", { required: true })} placeholder="Example: 2-5 years" /> 
                 </label>
                 </div>
                     <div className='mb-3'>
                         <label htmlFor="Location">
-                            <span className="text-xl my-2 font-semibold">Employer Type </span>
-                            <input className='ml-2 p-2 text-xl' {...register("employerType", { required: true })} placeholder="Example: HR or Recruiter" />
+                            <span className=" my-2 font-semibold">Employer Type </span>
+                            <input className='ml-2 p-2 ' {...register("employerType", { required: true })} placeholder="Example: HR or Recruiter" />
                         </label>
                     </div>
             </div>
@@ -132,13 +132,13 @@ const AddJob = () => {
             <div className='flex justify-between gap-40'>
                 <div className='mb-3'>
                     <label htmlFor="Location">
-                        <span className="text-xl my-2 font-semibold">Company Name</span>
-                            <input className='ml-2 p-2 text-xl' {...register("companyName", { required: true })} placeholder="Hi-Tech Private Limited" /> 
+                        <span className=" my-2 font-semibold">Company Name</span>
+                            <input defaultValue={user?.company} className='ml-2 p-2 ' {...register("companyName", { required: true })} readOnly/> 
                 </label>
                 </div>
                 <div className='mb-3'>
-                    <span className="text-xl my-2 mr-2 font-semibold">Company Size</span>
-                    <select {...register("companySize", { required: true })} className='p-2 text-xl' name="companySize" id="companySize">
+                    <span className=" my-2 mr-2 font-semibold">Company Size</span>
+                    <select {...register("companySize", { required: true })} className='p-2 ' name="companySize" id="companySize">
                         <option selected value="Under 10">Under 10</option>
                         <option value="10-50">10-50</option>
                         <option value="50-100">50-100</option>
@@ -149,18 +149,18 @@ const AddJob = () => {
 
             {/* overview */}
             <div>
-                <h2 className="text-xl font-semibold">Job overview</h2>
+                <h2 className=" font-semibold">Job overview</h2>
                 <textarea className="w-full p-4" {...register("overview", { required: true })} name="overview" id="overview" cols="30" rows="5"></textarea>
             </div>
 
             <div className="my-5">
                 <div>
-                    <h2 className="text-xl my-2 font-semibold">Required Skills:</h2>
+                    <h2 className=" my-2 font-semibold">Required Skills:</h2>
                     {skillsFields?.map((item, index) => {
                         return (
                             <div key={item.key} className='flex items-center gap-3 mb-5'>
                                 <input
-                                    className='w-full p-2 text-xl'
+                                    className='w-full p-2 '
                                     type='text'
                                     {...register(`skills[${index}]`)}
                                 />
@@ -174,12 +174,12 @@ const AddJob = () => {
 
             <div className="my-5">
                 <div>
-                    <h2 className="text-xl my-2 font-semibold">Requirements:</h2>
+                    <h2 className=" my-2 font-semibold">Requirements:</h2>
                     {reqFields?.map((item, index) => {
                         return (
                             <div key={item.key} className='flex items-center gap-3 mb-5'>
                                 <input
-                                    className='w-full p-2 text-xl'
+                                    className='w-full p-2 '
                                     type='text'
                                     {...register(`requirements[${index}]`)}
                                 />
@@ -192,12 +192,12 @@ const AddJob = () => {
             </div>
             <div className="my-5">
                 <div>
-                    <h2 className="text-xl my-2 font-semibold">Responsibilities:</h2>
+                    <h2 className=" my-2 font-semibold">Responsibilities:</h2>
                     {resFields?.map((item, index) => {
                         return (
                             <div key={item.key} className='flex items-center gap-3 mb-5'>
                                 <input
-                                    className='w-full p-2 text-xl'
+                                    className='w-full p-2 '
                                     type='text'
                                     {...register(`responsibilities[${index}]`)}
                                 />

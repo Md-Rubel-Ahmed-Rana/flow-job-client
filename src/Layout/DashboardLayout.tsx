@@ -9,7 +9,7 @@ const DashboardLayout = () => {
         <div>
             <Navbar />
             <div className='flex p-10 gap-10'>
-                <div>
+                <div className='w-2/12'>
                     <Sidebar />
                 </div>
                 <div>

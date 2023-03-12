@@ -70,7 +70,8 @@ const employerSlice = createSlice({
       builder.addCase(createEmployer.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
-        toast.success("Candidate account created")
+        toast.success("Employer account created");
+        window.location.replace("/")
       })
       builder.addCase(createEmployer.rejected, (state, action: any) => {
         state.loading = false;
