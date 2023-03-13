@@ -1,18 +1,51 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {  useNavigate, useParams } from 'react-router-dom';
+import swal from 'sweetalert';
 import { useApplyJobMutation, useGetSingleJobQuery } from './jobApi';
 
 
 
 const JobDetails = () => {
-   const { candidatesReducer: {user} }: any = useSelector((state) => state);
-    const navigate = useNavigate()
-     const {id}: any = useParams();
-     const {data} = useGetSingleJobQuery(id);
-     const [applyJob] = useApplyJobMutation();
+    let isApplied = false;
+    const [applied, setApplied] = useState(false)
+    const { candidatesReducer: {user} }: any = useSelector((state) => state);
+    const navigate = useNavigate();
+    const {id}: any = useParams();
+    const {data} = useGetSingleJobQuery(id);
+    const [applyJob] = useApplyJobMutation();
 
 
-     const {title, employerEmail, jobType, jobPlace, website, salary, workDay, workTime, location, skills, requirements, responsibilities, companySize, companyName, experience, employerType } = data?.job || {}
+     const {title, employerEmail, jobType, jobPlace, website, salary, workDay, workTime, location, skills, requirements, responsibilities, companySize, companyName, experience, employerType, applicants } = data?.job || {}
+
+
+     if(applicants){
+            applicants.forEach((applicant: {}) => {
+                const {candidateEmail}: any = applicant;
+                if(candidateEmail === user?.email){
+                    isApplied = true;
+                }
+        });
+     }
+    
+
+     const handleApply = async() => {
+        const data = {
+            candidateId: user?._id,
+            candidateEmail: user?.email,
+            jobId: id
+        }
+
+        const {data: {success, message}}: any = await applyJob(data);
+        if(success){
+            setApplied(true)
+            isApplied = true;
+            swal("Great!", `${message}` , "success")
+            return;
+        }
+        setApplied(false)
+     }
+
 
     return (
         <div className='mx-10'>
@@ -43,7 +76,9 @@ const JobDetails = () => {
             {/* apply button  */}
             <div>
                 {
-                    user?.role !== "employer" && <button onClick={() => applyJob(id)} className='bg-blue-700 py-2 px-16 mt-4 text-white rounded'>Apply</button>
+                    user?.role !== "employer" && <button disabled={isApplied || applied}  onClick={handleApply} className='bg-blue-700 py-2 px-16 mt-4 text-white rounded'>
+                        {isApplied || applied ? "Already applied" : "Apply"}
+                    </button>
                 }
             </div>
 
