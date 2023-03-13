@@ -91,6 +91,7 @@ const candidateSlice = createSlice({
       builder.addCase(loginUser.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
+        window.location.replace("/")
       })
       builder.addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload as string;

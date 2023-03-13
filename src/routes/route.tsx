@@ -8,6 +8,7 @@ import Admins from '../Pages/Dashboard/Admin/Admins';
 import Candidates from '../Pages/Dashboard/Admin/Candidates';
 import Recruiters from '../Pages/Dashboard/Admin/Recruiters';
 import MyJobs from '../Pages/Dashboard/Candidate/MyJobs';
+import Profiles from '../Pages/Dashboard/Profiles/Profiles';
 import AddJob from '../Pages/Dashboard/Recruiter/AddJob';
 import MyPosts from '../Pages/Dashboard/Recruiter/MyPosts';
 import Home from '../Pages/Home/Home';
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
         children: [
+            {
+                path: "/dashboard",
+                element: <Profiles />
+            },
             {
                 path: "/dashboard/admins",
                 element: <Admins />

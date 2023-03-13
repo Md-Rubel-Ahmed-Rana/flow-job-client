@@ -33,11 +33,11 @@ const Navbar = () => {
             <div>
                 <ul className='flex gap-5 text-lg font-semibold'>
                     <li><Link to="/">Home</Link></li>
-                    <li><Link to="/jobs">Jobs</Link></li>
-                    <li><Link to="/">Friends</Link></li>
-                    <li><Link to="/">Message</Link></li>
                     {
                         user?.email ? <> 
+                        <li><Link to="/">Friends</Link></li>
+                        <li><Link to="/">Message</Link></li>
+                        <li><Link to="/jobs">Jobs</Link></li>
                         <li><Link to="/dashboard">Dashboard</Link></li>
                         <li> <button onClick={handleLogout}>Logout</button> </li> 
                         </>
