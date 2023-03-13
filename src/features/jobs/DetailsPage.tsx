@@ -4,8 +4,6 @@ import {  useNavigate, useParams } from 'react-router-dom';
 import swal from 'sweetalert';
 import { useApplyJobMutation, useGetSingleJobQuery } from './jobApi';
 
-
-
 const JobDetails = () => {
     let isApplied = false;
     const [applied, setApplied] = useState(false)
@@ -15,8 +13,7 @@ const JobDetails = () => {
     const {data} = useGetSingleJobQuery(id);
     const [applyJob] = useApplyJobMutation();
 
-
-     const {title, employerEmail, jobType, jobPlace, website, salary, workDay, workTime, location, skills, requirements, responsibilities, companySize, companyName, experience, employerType, applicants } = data?.job || {}
+     const {title, employerEmail, jobType, jobPlace, website, salary, workDay, workTime, location, skills, requirements, responsibilities, companySize, companyName, experience, employerType, applicants, overview } = data?.job || {}
 
 
      if(applicants){
@@ -27,8 +24,6 @@ const JobDetails = () => {
                 }
         });
      }
-    
-
      const handleApply = async() => {
         const data = {
             candidateId: user?._id,
@@ -84,7 +79,7 @@ const JobDetails = () => {
 
             <div>
                 <h5 className='text-xl mt-5 font-semibold'>Job overview</h5>
-            <p className='text-lg'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit laborum, corrupti voluptas rerum obcaecati sunt dolorem temporibus dolorum quod ipsum reprehenderit quia a ad vel quis illo saepe ea debitis cupiditate repudiandae dicta voluptates. Ab nesciunt labore, obcaecati dolores reprehenderit harum corrupti illo laborum, nulla eaque aliquid sunt quod repellat exercitationem hic cumque iusto perferendis. Quaerat numquam pariatur facilis harum illum, consequatur corporis, nobis ab consectetur odio ea beatae iste perspiciatis iure sit at! Unde, pariatur dicta! Dolores commodi impedit tempore, nihil iure, quod culpa obcaecati aliquid eligendi sint expedita eos sunt facere eaque recusandae laboriosam dolorem molestiae quis repellendus.</p>
+                <p>{overview}</p>
             </div>
             <h5 className='text-2xl font-bold mt-5'>Skills</h5>
             <ul className='text-xl font-medium'>
@@ -106,6 +101,12 @@ const JobDetails = () => {
                 responsibilities && responsibilities.map((responsibility: "") => <li className='list-disc ml-5'>{responsibility}</li>)
                 }
             </ul>
+            <hr />
+            <div className='my-5'>
+                <h3 className="text-2xl font-bold">Ask Question to Employer</h3>
+                <input className='p-2 rounded border-2 shadow-md w-1/2' type="text" name="" id="" placeholder='Write your question' />
+                <button className='py-2 px-5 rounded text-white bg-blue-700'>Send</button>
+            </div>
         </div>
     );
 };

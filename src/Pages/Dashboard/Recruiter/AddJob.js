@@ -2,6 +2,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import MyButton from "../../../components/MyButton";
 import { useCreateJobPostMutation } from '../../../features/jobs/jobApi';
 
 const AddJob = () => {
@@ -28,125 +29,103 @@ const AddJob = () => {
         <div>
         <h3 className="text-4xl text-center font-bold">Add New Job</h3>
         <form onSubmit={handleSubmit(onSubmit)}  className='w-full p-10'>
-            {/* Title & location */}
-            <div className='flex justify-between gap-40'>
-                <div className='mb-3'>
-                <label htmlFor="title">
-                <span className="my-2 font-semibold"> Job Title</span>
-                        <input ref={register} className='ml-2 p-2 ' {...register("title", { required: true })} placeholder="Full Stack Developer" />
-                    </label>
-                </div>
-                <div className='mb-3'>
-                    <label htmlFor="Location">
-                        <span className="my-2 font-semibold">Location</span>
+            <div className="flex">
+                <div>
+                    <div className='mb-3'>
+                        <label htmlFor="title">
+                            <span className="my-2 font-semibold"> Job Title</span>
+                            <input ref={register} className='ml-2 p-2 ' {...register("title", { required: true })} placeholder="Full Stack Developer" />
+                        </label>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor="Location">
+                            <span className="my-2 font-semibold">Location</span>
                             <input className='ml-2 p-2' {...register("location", { required: true })} placeholder="City, Country" />
-                </label>
-                </div>
-            </div>
-
-                {/* job place & employer email  */}
-            <div className='flex justify-between gap-40'>
-                <div className='mb-3'>
-                    <span className=" my-2 mr-2 font-semibold">Job Place:</span>
-                    <select {...register("jobPlace", { required: true })} className='p-2 ' name="jobPlace" id="jobPlace">
-                    <option value="Remote">Remote</option>
-                    <option value="Onsite">Onsite</option>
-                    <option value="Remote/Onsite">Remote/Onsite</option>
-                </select>
-                </div>
-                <div className='mb-3'>
-                    <label htmlFor="Location">
-                        <span className=" my-2 font-semibold">Employer email</span>
-                        <input readOnly defaultValue={user?.email} className='ml-2 p-2 ' {...register("employerEmail", { required: true })} />
-                </label>
-                </div>
-            </div>
-
-                {/* official email & website  */}
-            <div className='flex justify-between gap-40'>
-                <div className='mb-3'>
-                    <label htmlFor="Location">
-                        <span className=" my-2 font-semibold">Official email</span>
-                            <input defaultValue={user?.officeEmail} className='ml-2 p-2 ' {...register("officialEmail", { required: true })} readOnly  />
-                </label>
-                </div>
-                <div className='mb-3'>
-                    <label htmlFor="website">
-                        <span className=" my-2 font-semibold">Website</span>
+                        </label>
+                    </div>
+                    <div className='mb-3'>
+                        <span className=" my-2 mr-2 font-semibold">Job Place:</span>
+                        <select {...register("jobPlace", { required: true })} className='p-2 ' name="jobPlace" id="jobPlace">
+                            <option value="Remote">Remote</option>
+                            <option value="Onsite">Onsite</option>
+                            <option value="Remote/Onsite">Remote/Onsite</option>
+                        </select>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor="Location">
+                            <span className=" my-2 font-semibold">Employer email</span>
+                            <input readOnly defaultValue={user?.email} className='ml-2 p-2 ' {...register("employerEmail", { required: true })} />
+                        </label>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor="Location">
+                            <span className=" my-2 font-semibold">Official email</span>
+                            <input defaultValue={user?.officeEmail} className='ml-2 p-2 ' {...register("officialEmail", { required: true })} readOnly />
+                        </label>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor="website">
+                            <span className=" my-2 font-semibold">Website</span>
                             <input className='ml-2 p-2 ' {...register("website", { required: true })} placeholder="www.example.com" />
-                </label>
+                        </label>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor="Location">
+                            <span className=" my-2 font-semibold">Salary Range</span>
+                            <input className='ml-2 p-2 ' {...register("salary", { required: true })} placeholder="20k-30k" />
+                        </label>
+                    </div>
                 </div>
-            </div>
-
-            {/* salary & working day  */}
-            <div className='flex justify-between gap-40'>
-                <div className='mb-3'>
-                    <label htmlFor="Location">
-                        <span className=" my-2 font-semibold">Salary Range</span>
-                        <input className='ml-2 p-2 ' {...register("salary", { required: true })} placeholder="20k-30k" />
-                </label>
-                </div>
-                <div className='mb-3'>
-                    <label htmlFor="Location">
-                        <span className=" my-2 font-semibold">Working Day/week</span>
-                            <input className='ml-2 p-2 ' {...register("workDay", { required: true })} placeholder="5/6" /> 
-                </label>
-                </div>
-            </div>
-
-            {/* working time & job type  */}
-            <div className='flex justify-between gap-40'>
-                <div className='mb-3'>
-                    <label htmlFor="Location">
-                        <span className=" my-2 font-semibold">Working Time</span>
-                            <input className='ml-2 p-2 ' {...register("workTime", { required: true })} placeholder="6h-8h" /> 
-                </label>
-                </div>
-                <div className='mb-3'>
-                    <span className=" my-2 mr-2 font-semibold">Job Type:</span>
-                    <select {...register("jobType", { required: true })} className='p-2 ' name="jobType" id="jobType">
-                        <option selected value="Full-Time">Full-Time</option>
-                        <option value="Part-Time">Part-Time</option>
-                        <option value="Intern">Intern</option>
-                    </select>
-                </div>
-            </div>
-
-                {/* Experience & Employer Type */}
-            <div className='flex justify-between gap-40'>
-                <div className='mb-3'>
-                    <label htmlFor="Location">
-                        <span className=" my-2 font-semibold">Experience </span>
-                        <input className='ml-2 p-2 ' {...register("experience", { required: true })} placeholder="Example: 2-5 years" /> 
-                </label>
-                </div>
+                <div className="lg:ml-40">
+                    <div className='mb-3'>
+                        <label htmlFor="Location">
+                            <span className=" my-2 font-semibold">Working Day/week</span>
+                                <input className='ml-2 p-2 ' {...register("workDay", { required: true })} placeholder="5/6" /> 
+                    </label>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor="Location">
+                            <span className=" my-2 font-semibold">Working Time</span>
+                            <input className='ml-2 p-2 ' {...register("workTime", { required: true })} placeholder="6h-8h" />
+                        </label>
+                    </div>
+                    <div className='mb-3'>
+                        <span className=" my-2 mr-2 font-semibold">Job Type:</span>
+                        <select {...register("jobType", { required: true })} className='p-2 ' name="jobType" id="jobType">
+                            <option selected value="Full-Time">Full-Time</option>
+                            <option value="Part-Time">Part-Time</option>
+                            <option value="Intern">Intern</option>
+                        </select>
+                    </div>
+                    <div className='mb-3'>
+                        <label htmlFor="Location">
+                            <span className=" my-2 font-semibold">Experience </span>
+                            <input className='ml-2 p-2 ' {...register("experience", { required: true })} placeholder="Example: 2-5 years" />
+                        </label>
+                    </div>
                     <div className='mb-3'>
                         <label htmlFor="Location">
                             <span className=" my-2 font-semibold">Employer Type </span>
                             <input className='ml-2 p-2 ' {...register("employerType", { required: true })} placeholder="Example: HR or Recruiter" />
                         </label>
                     </div>
-            </div>
-
-                {/* Company Name & Company Size */}
-            <div className='flex justify-between gap-40'>
-                <div className='mb-3'>
-                    <label htmlFor="Location">
-                        <span className=" my-2 font-semibold">Company Name</span>
-                            <input defaultValue={user?.company} className='ml-2 p-2 ' {...register("companyName", { required: true })} readOnly/> 
-                </label>
-                </div>
-                <div className='mb-3'>
-                    <span className=" my-2 mr-2 font-semibold">Company Size</span>
-                    <select {...register("companySize", { required: true })} className='p-2 ' name="companySize" id="companySize">
-                        <option selected value="Under 10">Under 10</option>
-                        <option value="10-50">10-50</option>
-                        <option value="50-100">50-100</option>
-                        <option value="Above 100">Above 100</option>
-                    </select>
+                    <div className='mb-3'>
+                        <label htmlFor="Location">
+                            <span className=" my-2 font-semibold">Company Name</span>
+                            <input defaultValue={user?.company} className='ml-2 p-2 ' {...register("companyName", { required: true })} readOnly />
+                        </label>
+                    </div>
+                    <div className='mb-3'>
+                        <span className=" my-2 mr-2 font-semibold">Company Size</span>
+                        <select {...register("companySize", { required: true })} className='p-2 ' name="companySize" id="companySize">
+                            <option selected value="Under 10">Under 10</option>
+                            <option value="10-50">10-50</option>
+                            <option value="50-100">50-100</option>
+                            <option value="Above 100">Above 100</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-
             {/* overview */}
             <div>
                 <h2 className=" font-semibold">Job overview</h2>
@@ -208,7 +187,7 @@ const AddJob = () => {
                 </div>
                 <span onClick={() => addResponsibility("")} className="py-2 cursor-pointer px-5 hover:bg-blue-700 bg-blue-500 rounded-md text-white">Add Responsibility</span>
             </div>
-            <button className='bg-blue-600 px-10 py-3 rounded w-full text-white font-bold' type="submit">Add Job</button>
+            <MyButton text="Add Job" />
         </form>
     </div>
     );

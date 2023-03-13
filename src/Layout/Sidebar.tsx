@@ -24,10 +24,10 @@ const Sidebar = () => {
                 }
                 
                 {
-                    user.role === "employer" && <div>
+                    user?.role === "employer" || user?.role === "recruiter"  ? <div>
                         <li className='font-bold hover:underline  p-1 rounded text-xl'><Link to="/dashboard/myposts">My Job Posts</Link></li>
                         <li className='font-bold hover:underline  p-1 rounded text-xl'><Link to="/dashboard/newjob">Add New Job</Link></li>
-                    </div>
+                    </div> : null
                 }
                 {
                     user.role === "candidate" && <li className='font-bold hover:underline p-1 rounded text-xl'><Link to="/dashboard/myjobs">Applied Jobs</Link></li>
