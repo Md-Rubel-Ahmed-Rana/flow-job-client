@@ -12,7 +12,7 @@ const Profiles = () => {
                role === "employer" && <EmployerProfile />
             }
             {
-               role === "admin" && <AdminProfile />
+               role === "admin" && <AdminProfile /> 
             }
             {
                role === "candidate" && <CandidateProfile /> 
