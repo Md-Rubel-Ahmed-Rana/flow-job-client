@@ -77,7 +77,8 @@ const candidateSlice = createSlice({
       builder.addCase(createCandidate.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
-        toast.success("Candidate account created")
+        toast.success("Candidate account created");
+        window.location.replace("/dashboard")
       })
       builder.addCase(createCandidate.rejected, (state, action) => {
         state.error = action.payload as string;
@@ -91,7 +92,7 @@ const candidateSlice = createSlice({
       builder.addCase(loginUser.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
-        window.location.replace("/")
+        window.location.replace("/dashboard")
       })
       builder.addCase(loginUser.rejected, (state, action) => {
         state.error = action.payload as string;

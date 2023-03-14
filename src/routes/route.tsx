@@ -10,10 +10,12 @@ import Recruiters from '../Pages/Dashboard/Admin/Recruiters';
 import MyJobs from '../Pages/Dashboard/Candidate/MyJobs';
 import Profiles from '../Pages/Dashboard/Profiles/Profiles';
 import AddJob from '../Pages/Dashboard/Recruiter/AddJob';
+import Applicants from '../Pages/Dashboard/Recruiter/Applicants';
 import MyPosts from '../Pages/Dashboard/Recruiter/MyPosts';
 import Home from '../Pages/Home/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
+import UserDetails from '../Pages/UserDetails/UserDetails';
 import ErrorPage from '../Shared/ErrorPage';
 import PrivateRoute from './PrivateRoute';
 const router = createBrowserRouter([
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
             {
                 path: "/jobs/:id",
                 element: <JobDetailsPage />
+            },
+            {
+                path: "/details/:id",
+                element: <UserDetails />
             }
         ]
     },
@@ -75,6 +81,10 @@ const router = createBrowserRouter([
             {
                 path: "/dashboard/newjob",
                 element: <AddJob/>
+            },
+            {
+                path: "/dashboard/applicants/:id",
+                element: <Applicants />
             }
         ]
     }

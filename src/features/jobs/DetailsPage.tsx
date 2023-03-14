@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import {useForm} from 'react-hook-form';
 import {  useNavigate, useParams } from 'react-router-dom';
 import swal from 'sweetalert';
-import { useApplyJobMutation, useGetSingleJobQuery } from './jobApi';
+import { useApplyJobMutation, useGetSingleJobQuery, useJobQueryMutation } from './jobApi';
 
 const JobDetails = () => {
     let isApplied = false;
@@ -12,8 +13,10 @@ const JobDetails = () => {
     const {id}: any = useParams();
     const {data} = useGetSingleJobQuery(id);
     const [applyJob] = useApplyJobMutation();
+    const {register, handleSubmit, reset} = useForm();
+    const [sendJobQuestion] = useJobQueryMutation() 
 
-     const {title, employerEmail, jobType, jobPlace, website, salary, workDay, workTime, location, skills, requirements, responsibilities, companySize, companyName, experience, employerType, applicants, overview } = data?.job || {}
+     const {title, employerEmail, jobType, jobPlace, website, salary, workDay, workTime, location, skills, requirements, responsibilities, companySize, companyName, experience, employerType, applicants, overview, queries } = data?.job || {}
 
 
      if(applicants){
@@ -27,10 +30,10 @@ const JobDetails = () => {
      const handleApply = async() => {
         const data = {
             candidateId: user?._id,
+            candidateName: user?.name,
             candidateEmail: user?.email,
             jobId: id
         }
-
         const {data: {success, message}}: any = await applyJob(data);
         if(success){
             setApplied(true)
@@ -39,6 +42,17 @@ const JobDetails = () => {
             return;
         }
         setApplied(false)
+     }
+
+
+     const handleJobQuery = async({question, answer}: any) => {
+        const query = {
+            jobId: id,
+            text: question || answer,
+            name: user?.name,
+        }
+        sendJobQuestion(query);
+        reset();
      }
 
 
@@ -102,10 +116,32 @@ const JobDetails = () => {
                 }
             </ul>
             <hr />
+
+             {/* Chat with Employer  */}
             <div className='my-5'>
                 <h3 className="text-2xl font-bold">Ask Question to Employer</h3>
-                <input className='p-2 rounded border-2 shadow-md w-1/2' type="text" name="" id="" placeholder='Write your question' />
-                <button className='py-2 px-5 rounded text-white bg-blue-700'>Send</button>
+                <div>
+                    {
+                        queries && queries.map(({text, name}: any) => <div className='my-2 bg-white p-2'>
+                            <h2 className='text-xl font-bold'>{name}</h2>
+                            <h2 className='ml-5'>{text}</h2>
+                        </div>)
+                    }
+                </div>
+                <form onSubmit={handleSubmit(handleJobQuery)}>
+                    {
+                    user.role === "candidate" && <input 
+                    {...register("question", {required: true})}
+                    className='p-2 rounded border-2 shadow-md w-1/2' type="text" id="" placeholder='Write your question' />
+                }
+                
+                {
+                    user?.role === "employer" && <input 
+                    {...register("answer",{required: true})}
+                    className='p-2 rounded border-2 shadow-md w-1/2' type="text"  id="" placeholder='Reply' />
+                }
+                <button type='submit' className='py-2 px-5 rounded text-white bg-blue-700'>Send</button>
+                </form>
             </div>
         </div>
     );

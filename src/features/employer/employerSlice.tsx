@@ -85,6 +85,7 @@ const employerSlice = createSlice({
       builder.addCase(loginUser.fulfilled, (state, action: any) => {
         state.user = action.payload;
         state.loading = false;
+        window.location.replace("/dashboard")
       })
       builder.addCase(loginUser.rejected, (state, action: any) => {
         state.loading = false;
